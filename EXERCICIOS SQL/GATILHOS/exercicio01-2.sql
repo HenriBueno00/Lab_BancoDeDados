@@ -6,6 +6,6 @@ INSERT INTO empregados (codigo,nome, salario)
 INSERT INTO empregados (codigo,nome, salario) 
 	VALUES (6,'José',1500);
 INSERT INTO empregados (codigo,nome, salario)
-	VALUES (7,'Maria',3500);
+	VALUES (7,'Maria',2500);
 
 SELECT * FROM empregados;
