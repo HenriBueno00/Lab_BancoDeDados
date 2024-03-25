@@ -52,6 +52,20 @@
         input[type="reset"]:hover {
             background-color: #da190b;
         }
+        #btnVoltar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 5rem;
+            float: left;
+            margin-left: 20px;
+            margin-top: 20px;
+
+        }
     </style>
 </head>
 <body>
@@ -75,6 +89,8 @@
         mysqli_close($con);
     }
     ?>
+    <button id="btnVoltar" onclick="history.back()">Voltar</button>
+
     <form method="post">
         <div>
             <p><label for="">Nome:</label></p>
