@@ -40,8 +40,5 @@
             <p><input type="reset" value="Limpar"></p>
         </div>
     </form>
-    <form action="exibir_tabela.php" method="post">
-        <input type="submit" value="Exibir Tabela">
-    </form>
 </body>
 </html>
