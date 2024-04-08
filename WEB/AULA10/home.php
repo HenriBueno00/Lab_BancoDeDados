@@ -62,7 +62,7 @@
         <div class="block-title">Medico</div>
         <div class="button-container">
             <button class="button" onclick="window.location='cad_medico.php'">Cadastrar</button>
-            <button class="button" onclick="window.location='consulta_medico.php'">Consultar</button>
+            <button class="button" onclick="window.location='alter_medico.php'">Consultar</button>
         </div>
     </div>
     
