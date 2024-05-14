@@ -12,7 +12,7 @@
     <h2>Página Inicial</h2>
     <a href="clientes.php"><button>Clientes</button></a>
     <a href="clientes.php"><button>Produtos</button></a>
-    <a href="clientes.php"><button>Clientes</button></a>
-    <a href="clientes.php"><button>Clientes</button></a>
+    <a href="clientes.php"><button>Forma de Pagamento</button></a>
+    <a href="clientes.php"><button>Pedidos</button></a>
 </body>
 </html>
