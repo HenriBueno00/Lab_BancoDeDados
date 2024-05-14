@@ -11,5 +11,8 @@
 <body>
     <h2>Página Inicial</h2>
     <a href="clientes.php"><button>Clientes</button></a>
+    <a href="clientes.php"><button>Produtos</button></a>
+    <a href="clientes.php"><button>Clientes</button></a>
+    <a href="clientes.php"><button>Clientes</button></a>
 </body>
 </html>
