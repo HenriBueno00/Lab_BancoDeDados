@@ -52,7 +52,7 @@
     <div class="container">
         <h2>Página de Produtos</h2>
         <a href="incluir_produto.php"><button>Cadastrar Produto</button></a>
-        <a href="ConsultarProduto.php"><button>Consultar Produto</button></a>
+        <a href="consultar_produtos.php"><button>Consultar Produto</button></a>
     </div>
 </body>
 </html>
