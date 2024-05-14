@@ -3,7 +3,7 @@
         <meta charset="UTF-8"><title>Consulta de Forma de Pagamento</title>
     </head>
     <body>
-        <button onclick="location.href='forma_pagto.php'" type="button">Voltar Página Inicial</button>
+        <button onclick="location.href='formapgto.php'" type="button">Voltar</button>
         <form method="POST">
             <p><center><h1>Formas de Pagamento</center><h1>
             <table border="1" width="100%">

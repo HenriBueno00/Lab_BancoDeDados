@@ -42,9 +42,9 @@
                 echo "Erro ao excluir a forma de pagamento: ".mysqli_error($con);
             }
             mysqli_close($con);
-            header("Location: forma_pagto.php");
+            header("Location: ConsultaFormaPgto.php");
         } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancelar'])){
-            header("Location: forma_pagto.php");
+            header("Location: ConsultaFormaPgto.php");
             exit;
         }   
         ?>
