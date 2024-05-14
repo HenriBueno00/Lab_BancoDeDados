@@ -51,8 +51,8 @@
 <body>
     <div class="container">
         <h2>Página de Produtos</h2>
-        <a href=".php"><button>Cadastrar Cliente</button></a>
-        <a href="ConsultarCliente.php"><button>Consultar Clientes</button></a>
+        <a href="incluir_produto.php"><button>Cadastrar Produto</button></a>
+        <a href="ConsultarProduto.php"><button>Consultar Produto</button></a>
     </div>
 </body>
 </html>
