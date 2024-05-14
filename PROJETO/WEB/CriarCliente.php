@@ -1,3 +1,48 @@
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verificando se o formulário foi submetido
+
+        // Conexão com o banco de dados
+        $servidor = 'localhost';
+        $usuario = 'root';
+        $senha = '';
+        $db = 'loja';
+        $con = mysqli_connect($servidor, $usuario, $senha, $db);
+        if(!$con){
+            die("Erro na conexão com MySQL: " . mysqli_connect_error());
+        }
+
+        // Recebendo os dados do formulário
+        $nome = $_POST['nome'];
+        $endereco = $_POST['endereco'];
+        $numero = $_POST['numero'];
+        $bairro = $_POST['bairro'];
+        $cidade = $_POST['cidade'];
+        $estado = $_POST['estado'];
+        $email = $_POST['email'];
+        $cpf_cnpj = $_POST['cpf_cnpj'];
+        $rg = $_POST['rg'];
+        $telefone = $_POST['telefone'];
+        $celular = $_POST['celular'];
+        $data_nasc = $_POST['data_nasc'];
+        $salario = $_POST['salario'];
+
+        // Query para inserir dados na tabela de clientes
+        $query = "INSERT INTO clientes (nome, endereco, numero, bairro, cidade, estado, email, cpf_cnpj, rg, telefone, celular, data_nasc, salario) 
+                  VALUES ('$nome', '$endereco', '$numero', '$bairro', '$cidade', '$estado', '$email', '$cpf_cnpj', '$rg', '$telefone', '$celular', '$data_nasc', '$salario')";
+
+        $resultado = mysqli_query($con, $query);
+
+        if ($resultado) {
+            $msg = "Cliente cadastrado com sucesso!";
+        } else {
+            $msg = "Erro ao cadastrar cliente: " . mysqli_error($con);
+        }
+
+        mysqli_close($con); // Fechando a conexão com o banco de dados
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,74 +50,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Cadastro de Clientes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select,
-        input[type="number"],
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+        /* Estilos CSS aqui */
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Formulário de Cadastro de Clientes</h2>
-        <form method="post" action="inserir_cliente.php">
+        <?php if(isset($msg)) echo "<p>$msg</p>"; ?> <!-- Exibindo mensagem de sucesso ou erro -->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
 
