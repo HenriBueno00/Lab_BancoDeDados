@@ -23,7 +23,7 @@ CREATE TABLE vendedor(
   estado CHAR(2) NOT NULL,
   celular VARCHAR(15) NOT NULL,
   email VARCHAR(100),
-  perc_comiss NUMERIC(5,2) NOT NULL
+  perc_comissao NUMERIC(5,2) NOT NULL
 ) ENGINE INNODB;
 
 CREATE TABLE produto(
