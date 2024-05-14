@@ -3,80 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar Produtos</title>
+    <title>Consulta Produtos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-
         h2 {
-            color: #333;
-            margin-bottom: 20px;
             text-align: center;
+            color: #333;
         }
-
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #45a049;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         table, th, td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
         }
-
         th {
             background-color: #f2f2f2;
         }
-
         a {
             text-decoration: none;
             color: #007bff;
             transition: color 0.3s ease;
         }
-
         a:hover {
             color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Consultar Produtos</h2>
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Quantidade em Estoque</th>
-                <th>Preço</th>
-                <th>Unidade de Medida</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-            <?php
-            // Incluir arquivo de conexão
-            include_once 'conexao.php';
+    <h2>Pesquisa de Produtos</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+        <label>Nome: </label>
+        <input type="text" name="nome" size="50">
+        <p>
+            <input type="submit" name="enviar" value="Pesquisar">
+            <input type="reset" name="limpar" value="Limpar">
+        </p>
+    </form>
 
-            // Consulta os produtos no banco de dados
-            $query = "SELECT * FROM produto";
+    <?php
+    // Incluir arquivo de conexão
+    include_once 'conexao.php';
+
+    // Inicializa a variável de pesquisa
+    $search = "";
+
+    // Verifica se o formulário foi submetido
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verifica se o campo de pesquisa não está vazio
+        if (!empty($_POST['nome'])) {
+            // Escapar caracteres especiais para evitar SQL injection
+            $search = mysqli_real_escape_string($con, $_POST['nome']);
+
+            // Query para buscar produtos com base no nome
+            $query = "SELECT * FROM produto WHERE nome LIKE '%$search%'";
             $result = mysqli_query($con, $query);
 
             // Verifica se há resultados
             if (mysqli_num_rows($result) > 0) {
+                echo "<table>";
+                echo "<tr><th>Nome</th><th>Quantidade em Estoque</th><th>Preço</th><th>Unidade de Medida</th><th>Editar</th><th>Excluir</th></tr>";
                 // Loop através de cada linha da consulta
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
@@ -88,14 +104,20 @@
                     echo "<td><a href='excluir_produto.php?id=" . $row['id'] . "'>Excluir</a></td>";
                     echo "</tr>";
                 }
+                echo "</table>";
             } else {
-                echo "<tr><td colspan='6'>Nenhum produto encontrado.</td></tr>";
+                echo "<p>Nenhum produto encontrado.</p>";
             }
+        } else {
+            echo "<p>Por favor, insira um nome para pesquisa.</p>";
+        }
+    }
+    
 
-            // Fechar conexão
-            mysqli_close($con);
-            ?>
-        </table>
-    </div>
+    // Fechar conexão
+    mysqli_close($con);
+    ?>
+
+    <input type="button" value="Voltar" onclick="window.location.href='index.php'">
 </body>
 </html>
