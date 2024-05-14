@@ -4,13 +4,13 @@ CREATE TABLE clientes (
   endereco VARCHAR(100) NOT NULL,
   numero VARCHAR(10) NOT NULL,
   bairro VARCHAR(50) NOT NULL,
-  cidade VARCHAR(50) NOT NULL,
+  cidade VARCHAR(80) NOT NULL,
   estado CHAR(2) NOT NULL,
   email VARCHAR(100),
   cpf_cnpj VARCHAR(14) NOT NULL,
   rg VARCHAR(11) NOT NULL,
-  telefone VARCHAR(13),
-  celular VARCHAR(14) NOT NULL,
+  telefone VARCHAR(15),
+  celular VARCHAR(15) NOT NULL,
   data_nasc DATE NOT NULL,
   salario NUMERIC(10,2) NOT NULL
 ) ENGINE INNODB;
@@ -19,11 +19,11 @@ CREATE TABLE vendedor(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100) NOT NULL,
   endereco VARCHAR(100) NOT NULL,
-  cidade VARCHAR(50) NOT NULL,
+  cidade VARCHAR(80) NOT NULL,
   estado CHAR(2) NOT NULL,
-  celular VARCHAR(14) NOT NULL,
+  celular VARCHAR(15) NOT NULL,
   email VARCHAR(100),
-  perc_comissao NUMERIC(3,2) NOT NULL
+  perc_comiss NUMERIC(5,2) NOT NULL
 ) ENGINE INNODB;
 
 CREATE TABLE produto(
@@ -31,7 +31,7 @@ CREATE TABLE produto(
   nome VARCHAR(100) NOT NULL,
   qtde_estoque INTEGER NOT NULL,
   preco NUMERIC(10,2) NOT NULL,
-  unidade_medida VARCHAR(10) NOT NULL,
+  unidade_medida VARCHAR(5) NOT NULL,
   promocao BOOLEAN
 ) ENGINE INNODB;
 
