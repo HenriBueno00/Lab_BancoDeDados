@@ -63,10 +63,10 @@ if (isset($_GET['id'])) {
     <title>Excluir Cliente</title>
 </head>
 <body>
-    <h2>Excluir Cliente</h2>
-    <p>Tem certeza que deseja excluir o cliente <strong><?php echo htmlspecialchars($nome); ?></strong>?</p>
-    <form method="post" action="DeletarCliente.php">
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+    <h2>Excluir Produto</h2>
+    <form method="post" action="excluir_produto.php">
+        <input type="hidden" name="id">
+        Tem certeza que deseja excluir este produto?<br><br>
         <input type="submit" value="Sim">
         <button type="button" onclick="window.history.back();">Não</button>
     </form>
