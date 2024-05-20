@@ -73,7 +73,7 @@
 
     <?php
     // Incluir arquivo de conexão
-    include_once 'conexao.php';
+    include_once 'ConexaoBD.php';
 
     // Inicializa a variável de pesquisa
     $search = "";
@@ -100,7 +100,7 @@
                     echo "<td>" . $row['qtde_estoque'] . "</td>";
                     echo "<td>R$ " . number_format($row['preco'], 2, ',', '.') . "</td>";
                     echo "<td>" . $row['unidade_medida'] . "</td>";
-                    echo "<td><a href='editar_produto.php?id=" . $row['id'] . "'>Editar</a></td>";
+                    echo "<td><a href='alterar_produto.php?id=" . $row['id'] . "'>Editar</a></td>";
                     echo "<td><a href='excluir_produto.php?id=" . $row['id'] . "'>Excluir</a></td>";
                     echo "</tr>";
                 }
