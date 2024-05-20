@@ -5,7 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultar Clientes</title>
     <style>
-        /* Estilos CSS aqui */
+        /* Estilos CSS para tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -32,9 +50,9 @@
                     // Iterando sobre os resultados e exibindo na tabela
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td>" . $row['nome'] . "</td>";
-                        echo "<td><a href='AlterarCliente.php?id=".$row['id']."'>Alterar</a></td>"; // Link para alterar cliente (substitua com o link correto)
-                        echo "<td><a href='DeletarCliente.php?id=".$row['id']."'>Excluir</a></td>"; // Link para excluir cliente (substitua com o link correto)
+                        echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
+                        echo "<td><a href='AlterarCliente.php?id=" . htmlspecialchars($row['id']) . "'>Alterar</a></td>";
+                        echo "<td><a href='DeletarCliente.php?id=" . htmlspecialchars($row['id']) . "'>Excluir</a></td>";
                         echo "</tr>";
                     }
                 } else {

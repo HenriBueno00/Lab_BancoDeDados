@@ -16,7 +16,6 @@ if (isset($_GET['id'])) {
     if ($resultado && mysqli_num_rows($resultado) > 0) {
         // Extrai os dados do cliente
         $row = mysqli_fetch_assoc($resultado);
-        $nome = $row['nome'];
     } else {
         // Se não encontrou o cliente, redireciona para a página de listagem com uma mensagem de erro
         $_SESSION['msg'] = "<p style='color:red;'>Cliente não encontrado.</p>";
@@ -51,7 +50,18 @@ if (isset($_GET['id'])) {
     <form method="POST" action="proc_edit_cliente.php">
         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
         <p><label>Nome: </label><input type="text" name="nome" size="100" value="<?php echo $row['nome']; ?>"></p>
-        <!-- Restante do formulário aqui -->
+        <p><label>Endereço: </label><input type="text" name="endereco" size="100" value="<?php echo $row['endereco']; ?>"></p>
+        <p><label>Número: </label><input type="text" name="numero" size="10" value="<?php echo $row['numero']; ?>"></p>
+        <p><label>Bairro: </label><input type="text" name="bairro" size="50" value="<?php echo $row['bairro']; ?>"></p>
+        <p><label>Cidade: </label><input type="text" name="cidade" size="80" value="<?php echo $row['cidade']; ?>"></p>
+        <p><label>Estado: </label><input type="text" name="estado" size="2" value="<?php echo $row['estado']; ?>"></p>
+        <p><label>Email: </label><input type="email" name="email" size="100" value="<?php echo $row['email']; ?>"></p>
+        <p><label>CPF/CNPJ: </label><input type="text" name="cpf_cnpj" size="14" value="<?php echo $row['cpf_cnpj']; ?>"></p>
+        <p><label>RG: </label><input type="text" name="rg" size="11" value="<?php echo $row['rg']; ?>"></p>
+        <p><label>Telefone: </label><input type="text" name="telefone" size="15" value="<?php echo $row['telefone']; ?>"></p>
+        <p><label>Celular: </label><input type="text" name="celular" size="15" value="<?php echo $row['celular']; ?>"></p>
+        <p><label>Data de Nascimento: </label><input type="date" name="data_nasc" value="<?php echo $row['data_nasc']; ?>"></p>
+        <p><label>Salário: </label><input type="text" name="salario" value="<?php echo $row['salario']; ?>"></p>
         <p>
             <input type="submit" value="Salvar">
             <input type="button" value="Cancelar" onclick="window.location.href='ConsultarCliente.php'">
