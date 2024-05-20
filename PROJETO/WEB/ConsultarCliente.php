@@ -22,7 +22,7 @@
                 include('ConexaoBD.php');
 
                 // Query para selecionar todos os clientes
-                $query = "SELECT nome FROM clientes ORDER BY nome";
+                $query = "SELECT id, nome FROM clientes ORDER BY nome";
 
                 // Executando a query
                 $result = mysqli_query($con, $query);
@@ -32,9 +32,9 @@
                     // Iterando sobre os resultados e exibindo na tabela
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td>" . $row['nome'] . "</td>"; 
-                        echo "<td><a href='AlterarCliente.php'>Alterar</a></td>"; // Link para alterar cliente (substitua com o link correto)
-                        echo "<td><a href='DeletarCliente.php'>Excluir</a></td>"; // Link para excluir cliente (substitua com o link correto)
+                        echo "<td>" . $row['nome'] . "</td>";
+                        echo "<td><a href='AlterarCliente.php?id=".$row['id']."'>Alterar</a></td>"; // Link para alterar cliente (substitua com o link correto)
+                        echo "<td><a href='DeletarCliente.php?id=".$row['id']."'>Excluir</a></td>"; // Link para excluir cliente (substitua com o link correto)
                         echo "</tr>";
                     }
                 } else {
