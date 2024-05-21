@@ -20,19 +20,20 @@
             text-align: center;
         }
 
-        h2 {
+        h1 {
             color: #333;
             margin-bottom: 20px;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 20px 40px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size:20px;
         }
 
         button:hover {
@@ -50,10 +51,9 @@
 </head>
 <body>
     <div class="container">
-        <h2>Página de Clientes</h2>
+        <h1>Página de Clientes</h1>
         <a href="CriarCliente.php"><button>Cadastrar Cliente</button></a>
         <a href="ConsultarCliente.php"><button>Consultar Clientes</button></a>
-        <a href="DeletarCliente.php"><button>Excluir Clientes</button></a>
     </div>
 </body>
 </html>

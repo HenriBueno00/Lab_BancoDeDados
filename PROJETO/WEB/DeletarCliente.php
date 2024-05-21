@@ -1,3 +1,39 @@
+<?php
+session_start();
+include_once("ConexaoBD.php");
+
+if(isset($_GET['id'])) {
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+    $query = "SELECT * FROM clientes WHERE id = '$id'";
+    $resultado = mysqli_query($con, $query);
+
+    if(mysqli_num_rows($resultado) == 1) {
+        $row = mysqli_fetch_assoc($resultado);
+
+        if(isset($_POST['confirmar'])) {
+            $query_excluir = "DELETE FROM clientes WHERE id = '$id'";
+            $resultado_excluir = mysqli_query($con, $query_excluir);
+
+            if($resultado_excluir) {
+                $_SESSION['msg'] = "<p style='color:green;'>Cliente excluído com sucesso!</p>";
+                header("Location: ConsultarCliente.php");
+                exit();
+            } else {
+                $_SESSION['msg'] = "<p style='color:red;'>Erro ao excluir o cliente.</p>";
+            }
+        }
+    } else {
+        $_SESSION['msg'] = "<p style='color:red;'>Cliente não encontrado.</p>";
+        header("Location: ConsultarCliente.php");
+        exit();
+    }
+} else {
+    $_SESSION['msg'] = "<p style='color:red;'>ID do cliente não foi fornecido.</p>";
+    header("Location: ConsultarCliente.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,69 +45,51 @@
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
-
-        .container {
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        form {
-            max-width: 300px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
             margin: 0 auto;
+            text-align: center; 
+        }
+        p {
             text-align: center;
         }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input[type="number"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
+        input[type="submit"], input[type="button"] {
             background-color: #f44336;
             color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            width: 50%;
         }
-
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, input[type="button"]:hover {
             background-color: #d32f2f;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Excluir Cliente</h2>
-        <form method="post" action="excluir_cliente.php">
-            <label for="id">ID do Cliente a ser excluído:</label><br>
-            <input type="number" id="id" name="id" required><br>
-            <input type="submit" value="Excluir">
-        </form>
-    </div>
+    <h1>Excluir Cliente</h1>
+    <?php
+    if(isset($_SESSION['msg'])){
+        echo $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    }
+    ?>
+    <form method="POST">
+        <p>Deseja realmente excluir o cliente <?php echo $row['nome']; ?>?</p>
+        <input type="submit" name="confirmar" value="Confirmar">
+        <input type="button" value="Cancelar" onclick="window.location='consulta_clientes.php'">
+    </form>
 </body>
 </html>
