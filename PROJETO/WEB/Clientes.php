@@ -53,6 +53,7 @@
         <h2>Página de Clientes</h2>
         <a href="CriarCliente.php"><button>Cadastrar Cliente</button></a>
         <a href="ConsultarCliente.php"><button>Consultar Clientes</button></a>
+        <a href="DeletarCliente.php"><button>Excluir Clientes</button></a>
     </div>
 </body>
 </html>

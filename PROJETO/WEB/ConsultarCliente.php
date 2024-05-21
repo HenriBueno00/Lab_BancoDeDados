@@ -5,53 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultar Clientes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
+        /* Estilos CSS para tabela */
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
-        table, th, td {
-            border: 1px solid black;
+        th, td {
+            border: 1px solid #ddd;
             padding: 8px;
-            text-align: center;
         }
-
         th {
             background-color: #f2f2f2;
+            text-align: left;
         }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-            transition: color 0.3s ease;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
-
-        a:hover {
-            color: #0056b3;
+        tr:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -64,12 +35,33 @@
                 <th>Alterar</th>
                 <th>Excluir</th>
             </tr>
-            <tr>
-                <td>Nome do Cliente 1</td>
-                <td><a href="AlterarCliente.php">Alterar</a></td>
-                <td><a href="DeletarCliente.php">Excluir</a></td>
-            </tr>
-            <!-- Adicione mais linhas conforme necessário -->
+            <?php
+                // Incluindo o arquivo de conexão com o banco de dados
+                include('ConexaoBD.php');
+
+                // Query para selecionar todos os clientes
+                $query = "SELECT id, nome FROM clientes ORDER BY nome";
+
+                // Executando a query
+                $result = mysqli_query($con, $query);
+
+                // Verificando se há resultados
+                if (mysqli_num_rows($result) > 0) {
+                    // Iterando sobre os resultados e exibindo na tabela
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
+                        echo "<td><a href='AlterarCliente.php?id=" . htmlspecialchars($row['id']) . "'>Alterar</a></td>";
+                        echo "<td><a href='DeletarCliente.php?id=" . htmlspecialchars($row['id']) . "'>Excluir</a></td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>Nenhum cliente encontrado.</td></tr>";
+                }
+
+                // Fechando a conexão com o banco de dados
+                mysqli_close($con);
+            ?>
         </table>
     </div>
 </body>
