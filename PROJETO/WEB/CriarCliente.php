@@ -53,6 +53,38 @@
 </head>
 <body>
     <h1>Cadastro de Clientes</h1>
+    <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            include('ConexaoBD.php');
+
+            $nome = $_POST['nome'];
+            $endereco = $_POST['endereco'];
+            $numero = $_POST['numero'];
+            $bairro = $_POST['bairro'];
+            $cidade = $_POST['cidade'];
+            $estado = $_POST['estado'];
+            $email = $_POST['email'];
+            $cpf_cnpj = $_POST['cpf_cnpj'];
+            $rg = $_POST['rg'];
+            $telefone = $_POST['telefone'];
+            $celular = $_POST['celular'];
+            $data_nasc = $_POST['data_nasc'];
+            $salario = $_POST['salario'];
+
+            $query = "INSERT INTO clientes (nome, endereco, numero, bairro, cidade, estado, email, cpf_cnpj, rg, telefone, celular, data_nasc, salario) 
+                      VALUES ('$nome', '$endereco', '$numero', '$bairro', '$cidade', '$estado', '$email', '$cpf_cnpj', '$rg', '$telefone', '$celular', '$data_nasc', '$salario')";
+
+            $resultado = mysqli_query($con, $query);
+
+            if ($resultado) {
+                echo "<p class='message'>Cliente cadastrado com sucesso!</p>";
+            } else {
+                echo "<p class='message'>Erro ao cadastrar cliente: " . mysqli_error($con) . "</p>";
+            }
+
+            mysqli_close($con); 
+        }
+        ?>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
