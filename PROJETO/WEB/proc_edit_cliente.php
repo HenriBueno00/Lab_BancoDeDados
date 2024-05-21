@@ -2,7 +2,6 @@
 session_start();
 include_once("ConexaoBD.php");
 
-// Verifica se os dados foram enviados via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
@@ -19,12 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data_nasc = filter_input(INPUT_POST, 'data_nasc', FILTER_SANITIZE_STRING);
     $salario = filter_input(INPUT_POST, 'salario', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-    // Verifica se os campos obrigatórios estão preenchidos
     if (!empty($id) && !empty($nome) && !empty($endereco) && !empty($numero) && !empty($bairro) &&
         !empty($cidade) && !empty($estado) && !empty($cpf_cnpj) && !empty($rg) &&
         !empty($celular) && !empty($data_nasc) && !empty($salario)) {
         
-        // Query para atualizar os dados do cliente
         $query = "UPDATE clientes SET 
             nome = '$nome', 
             endereco = '$endereco', 
@@ -41,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             salario = '$salario' 
             WHERE id = '$id'";
         
-        // Executa a query
         if (mysqli_query($con, $query)) {
             $_SESSION['msg'] = "<p style='color:green;'>Cliente atualizado com sucesso.</p>";
         } else {
@@ -51,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['msg'] = "<p style='color:red;'>Preencha todos os campos obrigatórios.</p>";
     }
     
-    // Redireciona para a página de edição
     header("Location: AlterarCliente.php?id=$id");
     exit();
 } else {
