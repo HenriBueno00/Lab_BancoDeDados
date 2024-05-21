@@ -117,8 +117,8 @@ INSERT INTO pedidos (data, id_cliente, observacao, id_forma_pagto, prazo_entrega
 ('2024-05-06', 6, 'Para presente', 6, '2 dias', 6),
 ('2024-05-07', 7, 'Entregar de manhã', 7, '3 dias', 7),
 ('2024-05-08', 8, 'Sem observações', 8, '1 dia', 8),
-('2024-05-09', 9, 'Cuidado com o transporte', 9, '2 dias', 9),
-('2024-05-10', 10, 'Entrega rápida', 10, '2 dias', 10);
+('2024-05-09', 9, 'Cuidado com o transporte', 7, '2 dias', 9),
+('2024-05-10', 10, 'Entrega rápida', 7, '2 dias', 10);
 
 INSERT INTO itens_pedido (id_pedido, id_produto, qtde) VALUES
 (1, 1, 2),
