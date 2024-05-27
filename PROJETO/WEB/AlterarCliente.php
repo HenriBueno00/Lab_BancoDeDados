@@ -6,12 +6,9 @@ if (isset($_GET['id'])) {
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     $query = "SELECT * FROM clientes WHERE id = '$id'";
-    
-
     $resultado = mysqli_query($con, $query);
 
     if ($resultado && mysqli_num_rows($resultado) > 0) {
-
         $row = mysqli_fetch_assoc($resultado);
     } else {
         $_SESSION['msg'] = "<p style='color:red;'>Cliente não encontrado.</p>";
@@ -30,7 +27,44 @@ if (isset($_GET['id'])) {
     <meta charset="utf-8">
     <title>CRUD - Editar Cliente</title>
     <style>
-
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input[type="text"], input[type="email"], input[type="date"] {
+            width: calc(100% - 160px);
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"], input[type="button"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            margin-right: 10px;
+        }
+        input[type="button"] {
+            background-color: #f44336;
+        }
     </style>
 </head>
 <body>
@@ -58,8 +92,8 @@ if (isset($_GET['id'])) {
         <p><label>Salário: </label><input type="text" name="salario" value="<?php echo $row['salario']; ?>"></p>
         <p>
             <input type="submit" value="Salvar">
-            <input type="button" value="Cancelar" onclick="window.location.href='ConsultarCliente.php'">
-            <input type="button" value="Voltar" onclick="window.location.href='ConsultarCliente.php'">
+            <input type="button" value="Cancelar" onclick="window.location.href='ConsultarClientes.php'">
+            <input type="button" value="Voltar" onclick="window.location.href='ConsultarClientes.php'">
         </p>
     </form>
 </body>
