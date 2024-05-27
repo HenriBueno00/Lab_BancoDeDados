@@ -57,7 +57,6 @@ $result_vendedores = $con->query($sql_vendedores);
         <label for="id_cliente">Cliente:</label>
         <select id="id_cliente" name="id_cliente">
             <?php
-            // Preencher o combobox com os clientes
             if ($result_clientes->num_rows > 0) {
                 while($row = $result_clientes->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
@@ -72,7 +71,6 @@ $result_vendedores = $con->query($sql_vendedores);
         <label for="id_forma_pagto">Forma de Pagamento:</label>
         <select id="id_forma_pagto" name="id_forma_pagto">
             <?php
-            // Preencher o combobox com as formas de pagamento
             if ($result_formas_pagto->num_rows > 0) {
                 while($row = $result_formas_pagto->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
@@ -87,7 +85,6 @@ $result_vendedores = $con->query($sql_vendedores);
         <label for="id_vendedor">Vendedor:</label>
         <select id="id_vendedor" name="id_vendedor">
             <?php
-            // Preencher o combobox com os vendedores
             if ($result_vendedores->num_rows > 0) {
                 while($row = $result_vendedores->fetch_assoc()) {
                     echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";

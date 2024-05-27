@@ -47,6 +47,16 @@
         a:hover {
             text-decoration: underline;
         }
+        #btnVoltar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -55,5 +65,6 @@
         <a href="pedido_ad.php"><button>Cadastrar Pedido</button></a>
         <a href="pedido_ex.php"><button>Excluir Pedido</button></a>
     </div>
+    <button id="btnVoltar" onclick="window.location='Clientes.php'">Voltar</button>
 </body>
 </html>
