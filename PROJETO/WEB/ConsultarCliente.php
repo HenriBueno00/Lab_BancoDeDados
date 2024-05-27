@@ -115,12 +115,9 @@
             </tr>
             <?php
                 include('ConexaoBD.php');
-                
-                // Obtém os filtros
                 $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
                 $cidade = isset($_POST['cidade']) ? $_POST['cidade'] : '';
                 
-                // Monta a consulta com filtros
                 $query = "SELECT * FROM clientes WHERE 1=1";
                 if (!empty($nome)) {
                     $query .= " AND nome LIKE '%$nome%'";
@@ -132,7 +129,6 @@
                 
                 $resu = mysqli_query($con, $query) or die(mysqli_error($con));
                 
-                // Exibe os resultados
                 while ($reg = mysqli_fetch_assoc($resu)) {
                     echo "<tr>";
                     foreach ($reg as $coluna => $valor) {
