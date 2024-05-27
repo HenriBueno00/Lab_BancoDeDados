@@ -48,7 +48,8 @@
             text-align: center;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #4CAF50;
+            color: white;
         }
         a {
             text-decoration: none;
@@ -63,36 +64,53 @@
 <body>
     <h2>Pesquisa de Produtos</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-        <label>Nome: </label>
-        <input type="text" name="nome" size="50">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" size="50">
         <p>
             <input type="submit" name="enviar" value="Pesquisar">
             <input type="reset" name="limpar" value="Limpar">
         </p>
     </form>
 
-    <?php
-    // Incluir arquivo de conexão
-    include_once 'ConexaoBD.php';
+    <div class="container">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade em Estoque</th>
+                <th>Preço</th>
+                <th>Unidade de Medida</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+            <?php
+            // Incluir arquivo de conexão
+            include_once 'ConexaoBD.php';
 
-    // Inicializa a variável de pesquisa
-    $search = "";
+            // Inicializa a variável de pesquisa
+            $search = "";
 
-    // Verifica se o formulário foi submetido
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Verifica se o campo de pesquisa não está vazio
-        if (!empty($_POST['nome'])) {
-            // Escapar caracteres especiais para evitar SQL injection
-            $search = mysqli_real_escape_string($con, $_POST['nome']);
+            // Verifica se o formulário foi submetido
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Verifica se o campo de pesquisa não está vazio
+                if (!empty($_POST['nome'])) {
+                    // Escapar caracteres especiais para evitar SQL injection
+                    $search = mysqli_real_escape_string($con, $_POST['nome']);
+                    // Query para buscar produtos com base no nome
+                    $query = "SELECT * FROM produto WHERE nome LIKE '%$search%'";
+                } else {
+                    echo "<p>Por favor, insira um nome para pesquisa.</p>";
+                    $query = "SELECT * FROM produto";
+                }
+            } else {
+                // Query para buscar todos os produtos quando a página é carregada pela primeira vez
+                $query = "SELECT * FROM produto";
+            }
 
-            // Query para buscar produtos com base no nome
-            $query = "SELECT * FROM produto WHERE nome LIKE '%$search%'";
+            // Executa a query
             $result = mysqli_query($con, $query);
 
             // Verifica se há resultados
             if (mysqli_num_rows($result) > 0) {
-                echo "<table>";
-                echo "<tr><th>Nome</th><th>Quantidade em Estoque</th><th>Preço</th><th>Unidade de Medida</th><th>Editar</th><th>Excluir</th></tr>";
                 // Loop através de cada linha da consulta
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
@@ -104,20 +122,15 @@
                     echo "<td><a href='excluir_produto.php?id=" . $row['id'] . "'>Excluir</a></td>";
                     echo "</tr>";
                 }
-                echo "</table>";
             } else {
-                echo "<p>Nenhum produto encontrado.</p>";
+                echo "<tr><td colspan='6'>Nenhum produto encontrado.</td></tr>";
             }
-        } else {
-            echo "<p>Por favor, insira um nome para pesquisa.</p>";
-        }
-    }
-    
 
-    // Fechar conexão
-    mysqli_close($con);
-    ?>
-
+            // Fechar conexão
+            mysqli_close($con);
+            ?>
+        </table>
+    </div>
     <input type="button" value="Voltar" onclick="window.location.href='index.php'">
 </body>
 </html>

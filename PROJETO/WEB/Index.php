@@ -23,7 +23,7 @@
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 40px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -32,6 +32,7 @@
             transition: background-color 0.3s ease;
             font-size: 16px;
             margin-bottom: 10px;
+            width: 200px;
         }
 
         button:hover {
@@ -52,6 +53,6 @@
     <a href="clientes.php"><button>Clientes</button></a>
     <a href="Produtos.php"><button>Produtos</button></a>
     <a href="FormaPgto.php"><button>Forma de Pagamento</button></a>
-    <a href="clientes.php"><button>Pedidos</button></a>
+    <a href="Pedidos.php"><button>Pedidos</button></a>
 </body>
 </html>

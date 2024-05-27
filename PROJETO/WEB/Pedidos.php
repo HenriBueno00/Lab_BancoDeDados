@@ -51,7 +51,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Página de Clientes</h1>
+        <h1>Página de Pedidos</h1>
         <a href="pedido_ad.php"><button>Cadastrar Pedido</button></a>
         <a href="pedido_ex.php"><button>Excluir Pedido</button></a>
     </div>
