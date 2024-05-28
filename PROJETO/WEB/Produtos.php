@@ -53,6 +53,7 @@
         <h2>Página de Produtos</h2>
         <a href="incluir_produto.php"><button>Cadastrar Produto</button></a>
         <a href="consultar_produtos.php"><button>Consultar Produto</button></a>
+        <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
     </div>
 </body>
 </html>

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Vendedores</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Inclusão de Vendedores</h1>
     <?php
-    include('conexao.php'); 
+    include('ConexaoBD.php'); 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $_POST["nome"];
@@ -18,25 +19,18 @@
         $email = $_POST["email"];
         $perc_comissao = $_POST["perc_comissao"];
 
-        
-        $query = "INSERT INTO vendedor (nome, endereco, cidade, estado, celular, email, perc_comissao) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        
-        $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "sssssss", $nome, $endereco, $cidade, $estado, $celular, $email, $perc_comissao);
-        $resu = mysqli_stmt_execute($stmt);
-
+        $query = "INSERT INTO vendedor (nome, endereco, cidade, estado, celular, email, perc_comissao) VALUES ('$nome', '$endereco', '$cidade', '$estado', '$celular', '$email', '$perc_comissao')";
+        $resu = mysqli_query($con, $query);
+    
         if ($resu) {
             echo "Inclusão realizada com sucesso!!";
         } else {
             echo "ERRO ao inserir os dados.";
-            
         }
 
-        
-        mysqli_stmt_close($stmt);
         mysqli_close($con);
     }
+    
     ?>
     <form method="POST">
         <label>Nome:</label>
@@ -66,6 +60,7 @@
         <input type="number" min="0" max="100" step="0.01" name="perc_comissao" required><br><p>
         <input type="submit" value="Enviar">
         <input type="reset" value="Limpar">
+        <button id="btnVoltar" type="button" onclick="window.location.href='Vendedores.php'">Voltar</button>
     </form>
 </body>
 </html>

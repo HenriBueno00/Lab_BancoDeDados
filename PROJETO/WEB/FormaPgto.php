@@ -47,6 +47,7 @@
         <h2>Página de Forma de Pagamento</h2>
         <a href="AdicionarFormaPgto.php"><button>Cadastrar Forma de Pagamento</button></a>
         <a href="ConsultaFormaPgto.php"><button>Consultar Forma de Pagamento</button></a>
+        <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
     </div>
 </body>
 </html>

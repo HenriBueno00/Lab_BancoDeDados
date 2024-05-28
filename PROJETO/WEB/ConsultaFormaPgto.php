@@ -1,9 +1,10 @@
 <html>
     <head>
         <meta charset="UTF-8"><title>Consulta de Forma de Pagamento</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        <button onclick="location.href='formapgto.php'" type="button">Voltar</button>
+        <button id="btnVoltar" type="button" onclick="window.location.href='formapgto.php'">Voltar</button>
         <form method="POST">
             <p><center><h1>Formas de Pagamento</center><h1>
             <table border="1" width="100%">

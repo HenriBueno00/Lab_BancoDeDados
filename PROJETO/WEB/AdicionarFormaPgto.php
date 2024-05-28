@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Adição de forma de pagamento</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
         <h1>Adição de forma de pagamento</h1>
@@ -25,7 +26,7 @@
             <input type="text" name="nome" size="100" maxlength="100" required>
             <input type="submit" value="Enviar">
             <input type="reset" value="Limpar">
-            <button onclick="location.href='formapgto.php'" type="button">Voltar</button>
+            <button id="btnVoltar" type="button" onclick="window.location.href='formapgto.php'">Voltar</button>
         </form>
     </body>
 </html>
