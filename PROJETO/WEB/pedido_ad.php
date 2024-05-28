@@ -1,99 +1,138 @@
-<?php
-include('ConexaoBD.php');
-
-// Verificar se o formulário foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obter os dados do formulário
-    $data = $_POST['data'];
-    $id_cliente = $_POST['id_cliente'];
-    $observacao = $_POST['observacao'];
-    $id_forma_pagto = isset($_POST['id_forma_pagto']) ? $_POST['id_forma_pagto'] : null;
-    $prazo_entrega = $_POST['prazo_entrega'];
-    $id_vendedor = $_POST['id_vendedor'];
-
-    // Verificar se o cliente existe
-    $check_client = "SELECT * FROM clientes WHERE id = '$id_cliente'";
-    $result = $con->query($check_client);
-    
-    if ($result->num_rows > 0) {
-        // Preparar e executar a inserção do pedido
-        $stmt = $con->prepare("INSERT INTO pedidos (data, id_cliente, observacao, id_forma_pagto, prazo_entrega, id_vendedor) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sissis", $data, $id_cliente, $observacao, $id_forma_pagto, $prazo_entrega, $id_vendedor);
-        
-        if ($stmt->execute()) {
-            echo "Pedido adicionado com sucesso!";
-        } else {
-            echo "Erro ao adicionar pedido: " . $stmt->error;
-        }
-        
-        $stmt->close();
-    } else {
-        echo "Erro: Cliente não encontrado.";
-    }
-}
-
-// Consulta para obter todas as formas de pagamento
-$sql_formas_pagto = "SELECT id, nome FROM forma_pagto";
-$result_formas_pagto = $con->query($sql_formas_pagto);
-
-// Consulta para obter todos os vendedores
-$sql_vendedores = "SELECT id, nome FROM vendedor";
-$result_vendedores = $con->query($sql_vendedores);
-?>
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Pedido</title>
+  <meta charset="UTF-8">
+  <title>Pedido de Produtos</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h2>Adicionar Pedido</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="data">Data:</label>
-        <input type="date" id="data" name="data"><br>
+  <?php
+  // Incluir o arquivo de conexão com o banco de dados
+  include('ConexaoBD.php');
+
+  // Consultas para obter os dados necessários
+  $sql_produtos = "SELECT id, nome FROM produto";
+  $result_produtos = $con->query($sql_produtos);
+
+  $produtos = [];
+  if ($result_produtos->num_rows > 0) {
+    while($row = $result_produtos->fetch_assoc()) {
+      $produtos[] = $row;
+    }
+  }
+
+  $sql_clientes = "SELECT id, nome FROM clientes";
+  $result_clientes = $con->query($sql_clientes);
+
+  $clientes = [];
+  if ($result_clientes->num_rows > 0) {
+    while($row = $result_clientes->fetch_assoc()) {
+      $clientes[] = $row;
+    }
+  }
+
+  $sql_formas_pagto = "SELECT id, nome FROM forma_pagto";
+  $result_formas_pagto = $con->query($sql_formas_pagto);
+
+  $formas_pagto = [];
+  if ($result_formas_pagto->num_rows > 0) {
+    while($row = $result_formas_pagto->fetch_assoc()) {
+      $formas_pagto[] = $row;
+    }
+  }
+
+  $sql_vendedores = "SELECT id, nome FROM vendedor";
+  $result_vendedores = $con->query($sql_vendedores);
+
+  $vendedores = [];
+  if ($result_vendedores->num_rows > 0) {
+    while($row = $result_vendedores->fetch_assoc()) {
+      $vendedores[] = $row;
+    }
+  }
+
+  $con->close();
+  ?>
+  
+  <form action="processar_pedido.php" method="POST">
+    <h2>Pedido</h2>
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required><br>
+    
+    <label for="id_cliente">Cliente:</label>
+    <select id="id_cliente" name="id_cliente" required>
+      <?php foreach ($clientes as $cliente): ?>
+        <option value="<?= $cliente['id'] ?>"><?= $cliente['nome'] ?></option>
+      <?php endforeach; ?>
+    </select><br>
+    
+    <label for="observacao">Observação:</label>
+    <input type="text" id="observacao" name="observacao"><br>
+    
+    <label for="id_forma_pagto">Forma de Pagamento:</label>
+    <select id="id_forma_pagto" name="id_forma_pagto">
+      <?php foreach ($formas_pagto as $forma_pagto): ?>
+        <option value="<?= $forma_pagto['id'] ?>"><?= $forma_pagto['nome'] ?></option>
+      <?php endforeach; ?>
+    </select><br>
+    
+    <label for="prazo_entrega">Prazo de Entrega:</label>
+    <input type="text" id="prazo_entrega" name="prazo_entrega"><br>
+    
+    <label for="id_vendedor">Vendedor:</label>
+    <select id="id_vendedor" name="id_vendedor">
+      <option value="" selected></option>
+      <?php foreach ($vendedores as $vendedor): ?>
+        <option value="<?= $vendedor['id'] ?>"><?= $vendedor['nome'] ?></option>
+      <?php endforeach; ?>
+    </select><br>
+    
+    <h3>Itens do Pedido</h3>
+    <div id="itens-container">
+      <div class="item">
+        <label for="id_produto">Produto:</label>
+        <select name="id_produto[]" required>
+          <?php foreach ($produtos as $produto): ?>
+            <option value="<?= $produto['id'] ?>"><?= $produto['nome'] ?></option>
+          <?php endforeach; ?>
+        </select>
         
-        <label for="id_cliente">Cliente:</label>
-        <select id="id_cliente" name="id_cliente">
-            <?php
-            if ($result_clientes->num_rows > 0) {
-                while($row = $result_clientes->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
-                }
-            }
-            ?>
-        </select><br>
+        <label for="qtde">Quantidade:</label>
+        <input type="number" name="qtde[]" required>
         
-        <label for="observacao">Observação:</label>
-        <input type="text" id="observacao" name="observacao"><br>
+        <button type="button" onclick="removerItem(this)">Remover</button>
+      </div>
+    </div>
+    <button type="button" onclick="adicionarItem()">Adicionar Item</button><br><br>
+    
+    <button type="submit">Salvar Pedido</button>
+  </form>
+  
+  <script>
+    const produtos = <?php echo json_encode($produtos); ?>;
+    
+    function adicionarItem() {
+      const itemContainer = document.getElementById('itens-container');
+      const newItem = document.createElement('div');
+      newItem.className = 'item';
+      newItem.innerHTML = `
+        <label for="id_produto">Produto:</label>
+        <select name="id_produto[]" required>
+          ${produtos.map(produto => `<option value="${produto.id}">${produto.nome}</option>`).join('')}
+        </select>
         
-        <label for="id_forma_pagto">Forma de Pagamento:</label>
-        <select id="id_forma_pagto" name="id_forma_pagto">
-            <?php
-            if ($result_formas_pagto->num_rows > 0) {
-                while($row = $result_formas_pagto->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
-                }
-            }
-            ?>
-        </select><br>
+        <label for="qtde">Quantidade:</label>
+        <input type="number" name="qtde[]" required>
         
-        <label for="prazo_entrega">Prazo de Entrega:</label>
-        <input type="text" id="prazo_entrega" name="prazo_entrega"><br>
-        
-        <label for="id_vendedor">Vendedor:</label>
-        <select id="id_vendedor" name="id_vendedor">
-            <?php
-            if ($result_vendedores->num_rows > 0) {
-                while($row = $result_vendedores->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
-                }
-            }
-            ?>
-        </select><br>
-        
-        <input type="submit" value="Adicionar">
-    </form>
+        <button type="button" onclick="removerItem(this)">Remover</button>
+      `;
+      itemContainer.appendChild(newItem);
+    }
+    
+    function removerItem(button) {
+      const item = button.parentElement;
+      item.remove();
+    }
+  </script>
 </body>
 </html>

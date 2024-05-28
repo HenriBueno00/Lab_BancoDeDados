@@ -63,6 +63,7 @@
     <div class="container">
         <h1>Página de Pedidos</h1>
         <a href="pedido_ad.php"><button>Cadastrar Pedido</button></a>
+        <a href="pedido_cons.php"><button>Consultar Pedido</button></a>
         <a href="pedido_ex.php"><button>Excluir Pedido</button></a>
     </div>
     <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>

@@ -1,17 +1,5 @@
 <?php
-// Dados de conexão
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "loja";
-
-// Criar conexão
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Verificar a conexão
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
-}
+include('ConexaoBD.php');
 ?>
 
 <!DOCTYPE html>
