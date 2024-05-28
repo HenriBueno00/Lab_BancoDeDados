@@ -97,6 +97,7 @@
         <h2>Clientes</h2>
         <table>
             <tr>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>Endereço</th>
                 <th>Número</th>
@@ -118,15 +119,16 @@
                 $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
                 $cidade = isset($_POST['cidade']) ? $_POST['cidade'] : '';
                 
-                $query = "SELECT * FROM clientes WHERE 1=1";
-                if (!empty($nome)) {
-                    $query .= " AND nome LIKE '%$nome%'";
-                }
-                if (!empty($cidade)) {
-                    $query .= " AND cidade LIKE '%$cidade%'";
+                $query = "SELECT * FROM clientes";
+                if (!empty($nome) && empty($cidade)) {
+                    $query .= " WHERE nome LIKE '%$nome%'";
+                } elseif (!empty($cidade) && empty($nome)) {
+                    $query .= " WHERE cidade LIKE '%$cidade%'";
+                } elseif (!empty($nome) && !empty($cidade)) {
+                    $query .= " WHERE nome LIKE '%$nome%' AND cidade LIKE '%$cidade%'";
                 }
                 $query .= " ORDER BY nome";
-                
+
                 $resu = mysqli_query($con, $query) or die(mysqli_error($con));
                 
                 while ($reg = mysqli_fetch_assoc($resu)) {
