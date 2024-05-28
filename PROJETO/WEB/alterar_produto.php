@@ -4,18 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar Produto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            width: 300px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"], button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+        }
+        button:hover {
+            background-color: #e53935;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a.button:hover {
+            background-color: #1976D2;
+        }
+        p.success {
+            color: green;
+            text-align: center;
+        }
+        p.error {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h2>Alterar Produto</h2>
 
     <?php
-    // Inclui o arquivo de conexão
-    include_once 'ConexaoBD.php';
+    include_once('ConexaoBD.php');
 
-    // Inicializa variáveis
     $id = $nome = $qtde_estoque = $preco = $unidade_medida = '';
 
-    // Verifica se o ID do produto foi passado via GET
     if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $id = $_GET['id'];
 
@@ -29,11 +97,10 @@
             mysqli_stmt_fetch($stmt);
             mysqli_stmt_close($stmt);
         } else {
-            echo "Erro ao preparar a query: " . mysqli_error($con);
+            echo "<p class='error'>Erro ao preparar a query: " . mysqli_error($con) . "</p>";
         }
     }
 
-    // Processamento da alteração do produto
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = $_POST['id'];
         $nome = $_POST['nome'];
@@ -41,24 +108,22 @@
         $preco = $_POST['preco'];
         $unidade_medida = $_POST['unidade_medida'];
 
-        // Atualiza os dados do produto no banco de dados
         if (!empty($id) && !empty($nome) && !empty($qtde_estoque) && !empty($preco) && !empty($unidade_medida)) {
             $sql = "UPDATE produto SET nome = ?, qtde_estoque = ?, preco = ?, unidade_medida = ? WHERE id = ?";
             $stmt = mysqli_prepare($con, $sql);
             if ($stmt) {
                 mysqli_stmt_bind_param($stmt, "sidsi", $nome, $qtde_estoque, $preco, $unidade_medida, $id);
                 if (mysqli_stmt_execute($stmt)) {
-                    echo "Produto alterado com sucesso.";
-                    echo '<br><form action="consultar_produtos.php"><input type="submit" value="Voltar"></form>';
+                    echo "<p class='success'>Produto alterado com sucesso.</p>";
                 } else {
-                    echo "Erro ao alterar produto: " . mysqli_error($con);
+                    echo "<p class='error'>Erro ao alterar produto: " . mysqli_error($con) . "</p>";
                 }
                 mysqli_stmt_close($stmt);
             } else {
-                echo "Erro ao preparar a query: " . mysqli_error($con);
+                echo "<p class='error'>Erro ao preparar a query: " . mysqli_error($con) . "</p>";
             }
         } else {
-            echo "Todos os campos são obrigatórios.";
+            echo "<p class='error'>Todos os campos são obrigatórios.</p>";
         }
 
         // Fechar a conexão
@@ -68,12 +133,23 @@
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-        Nome: <input type="text" name="nome" value="<?php echo htmlspecialchars($nome); ?>"><br><br>
-        Quantidade em Estoque: <input type="number" name="qtde_estoque" value="<?php echo htmlspecialchars($qtde_estoque); ?>"><br><br>
-        Preço: <input type="number" step="0.01" name="preco" value="<?php echo htmlspecialchars($preco); ?>"><br><br>
-        Unidade de Medida: <input type="text" name="unidade_medida" value="<?php echo htmlspecialchars($unidade_medida); ?>"><br><br>
-        <button type="button" onclick="history.back()">Cancelar</button>
+        
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($nome); ?>">
+        
+        <label for="qtde_estoque">Quantidade em Estoque:</label>
+        <input type="number" id="qtde_estoque" name="qtde_estoque" value="<?php echo htmlspecialchars($qtde_estoque); ?>">
+        
+        <label for="preco">Preço:</label>
+        <input type="number" step="0.01" id="preco" name="preco" value="<?php echo htmlspecialchars($preco); ?>">
+        
+        <label for="unidade_medida">Unidade de Medida:</label>
+        <input type="text" id="unidade_medida" name="unidade_medida" value="<?php echo htmlspecialchars($unidade_medida); ?>">
+        
+
         <input type="submit" value="Alterar Produto">
+        <button type="button" onclick="history.back()">Cancelar</button>
+        <a href="consultar_produtos.php" class="button">Voltar</a>
     </form>
 </body>
 </html>

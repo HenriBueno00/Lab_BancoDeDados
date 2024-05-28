@@ -59,6 +59,16 @@
         a:hover {
             color: #0056b3;
         }
+        #btnVoltar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -83,35 +93,25 @@
                 <th>Excluir</th>
             </tr>
             <?php
-            // Incluir arquivo de conexão
-            include_once 'ConexaoBD.php';
 
-            // Inicializa a variável de pesquisa
+            include('ConexaoBD.php');
+
             $search = "";
 
-            // Verifica se o formulário foi submetido
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Verifica se o campo de pesquisa não está vazio
                 if (!empty($_POST['nome'])) {
-                    // Escapar caracteres especiais para evitar SQL injection
                     $search = mysqli_real_escape_string($con, $_POST['nome']);
-                    // Query para buscar produtos com base no nome
                     $query = "SELECT * FROM produto WHERE nome LIKE '%$search%'";
                 } else {
                     echo "<p>Por favor, insira um nome para pesquisa.</p>";
                     $query = "SELECT * FROM produto";
                 }
             } else {
-                // Query para buscar todos os produtos quando a página é carregada pela primeira vez
                 $query = "SELECT * FROM produto";
             }
-
-            // Executa a query
             $result = mysqli_query($con, $query);
 
-            // Verifica se há resultados
             if (mysqli_num_rows($result) > 0) {
-                // Loop através de cada linha da consulta
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['nome'] . "</td>";
@@ -125,8 +125,6 @@
             } else {
                 echo "<tr><td colspan='6'>Nenhum produto encontrado.</td></tr>";
             }
-
-            // Fechar conexão
             mysqli_close($con);
             ?>
         </table>
