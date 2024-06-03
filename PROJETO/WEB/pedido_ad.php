@@ -92,6 +92,7 @@
       <div class="item">
         <label for="id_produto">Produto:</label>
         <select name="id_produto[]" required>
+          <option value="" selected></option>
           <?php foreach ($produtos as $produto): ?>
             <option value="<?= $produto['id'] ?>"><?= $produto['nome'] ?></option>
           <?php endforeach; ?>
