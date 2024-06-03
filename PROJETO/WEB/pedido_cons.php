@@ -3,11 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Consulta de Pedidos</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script>
+    function toggleItens(pedidoId) {
+      var x = document.getElementById("itens-" + pedidoId);
+      var btn = document.getElementById("btn-" + pedidoId);
+      if (x.style.display === "none") {
+        x.style.display = "table-row-group";
+        btn.textContent = "Ocultar Itens";
+      } else {
+        x.style.display = "none";
+        btn.textContent = "Ver Itens";
+      }
+    }
+  </script>
 </head>
 <body>
   <?php
   include('ConexaoBD.php');
 
+  // Receber os valores dos campos de data do formulário
   $data_inicio = isset($_POST['data_inicio']) ? $_POST['data_inicio'] : '';
   $data_fim = isset($_POST['data_fim']) ? $_POST['data_fim'] : '';
 
@@ -16,14 +31,15 @@
           INNER JOIN clientes c ON p.id_cliente = c.id
           INNER JOIN vendedor v ON p.id_vendedor = v.id";
 
+  // Adicionar filtro de data se os campos estiverem preenchidos
   if ($data_inicio && $data_fim) {
     $sql .= " WHERE p.data BETWEEN '$data_inicio' AND '$data_fim'";
   }
 
   $result = $con->query($sql);
   ?>
-  
-  <form method="POST" action="consulta_pedidos.php">
+
+  <form method="POST">
     <h2>Filtro de Período</h2>
     <label for="data_inicio">Data Início:</label>
     <input type="date" id="data_inicio" name="data_inicio" value="<?= $data_inicio ?>"><br>
@@ -45,10 +61,12 @@
         <th>Forma de Pagamento</th>
         <th>Prazo de Entrega</th>
         <th>Vendedor</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <?php
+      // Exibir os resultados da consulta
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           echo "<tr>";
@@ -59,16 +77,36 @@
           echo "<td>{$row['id_forma_pagto']}</td>";
           echo "<td>{$row['prazo_entrega']}</td>";
           echo "<td>{$row['nome_vendedor']}</td>";
+          echo "<td><button type='button' id='btn-{$row['id']}' onclick='toggleItens({$row['id']})'>Ver Itens</button></td>";
           echo "</tr>";
+
+          // Consulta para obter os itens do pedido
+          $sql_itens = "SELECT ip.*, pr.nome AS nome_produto
+                        FROM itens_pedido ip
+                        INNER JOIN produto pr ON ip.id_produto = pr.id
+                        WHERE ip.id_pedido = {$row['id']}";
+
+          $result_itens = $con->query($sql_itens);
+
+          echo "<tr id='itens-{$row['id']}' style='display: none;'><td colspan='8'><table border='1' width='100%'><tr><th>Produto</th><th>Quantidade</th></tr>";
+          if ($result_itens->num_rows > 0) {
+            while($item = $result_itens->fetch_assoc()) {
+              echo "<tr><td>{$item['nome_produto']}</td><td>{$item['qtde']}</td></tr>";
+            }
+          } else {
+            echo "<tr><td colspan='2'>Nenhum item encontrado</td></tr>";
+          }
+          echo "</table></td></tr>";
         }
       } else {
-        echo "<tr><td colspan='7'>Nenhum pedido encontrado</td></tr>";
+        echo "<tr><td colspan='8'>Nenhum pedido encontrado</td></tr>";
       }
       ?>
     </tbody>
   </table>
 
   <?php
+  // Fechar a conexão com o banco de dados
   $con->close();
   ?>
 </body>
