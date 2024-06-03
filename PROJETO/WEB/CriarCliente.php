@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clientes</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Cadastro de Clientes</h1>

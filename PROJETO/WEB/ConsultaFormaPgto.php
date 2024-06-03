@@ -1,7 +1,6 @@
 <html>
     <head>
         <meta charset="UTF-8"><title>Consulta de Forma de Pagamento</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
         <button id="btnVoltar" type="button" onclick="window.location.href='formapgto.php'">Voltar</button>

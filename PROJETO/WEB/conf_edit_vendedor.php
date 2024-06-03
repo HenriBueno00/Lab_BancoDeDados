@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("conexao.php");
+include("ConexaoBD.php");
 $id=$_POST["id"];
 $nome = $_POST["nome"];
 $endereco = $_POST["endereco"];
@@ -17,10 +17,10 @@ $resultado = mysqli_query($con, $result) or die(mysqli_connect_error());
 
 if(mysqli_affected_rows($con)){
     $_SESSION['msg'] = "<p style='color:green;'>Vendedor alterado com sucesso</p>";
-    header("Location: alter_vendedor.php");
+    header("Location: cons_vendedor.php");
 }else{
     $_SESSION['msg'] = "<p style='color:green;'>Vendedor não foi alterado, verifique!</p>";
-    header("Location: alter_vendedor.php");
+    header("Location: cons_vendedor.php");
 }
 msyqli_close($con);
 

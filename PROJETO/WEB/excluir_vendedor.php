@@ -9,7 +9,7 @@
     <?php
 
     if(isset($_GET['id'])){
-        include('conexao.php');
+        include('ConexaoBD.php');
         $id = $_GET['id'];
 
         $query = "SELECT * FROM vendedor WHERE id= $id";
@@ -34,7 +34,7 @@
 <?php
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar'])){
-    include('conexao.php');
+    include('ConexaoBD.php');
 
     $id_vendedor = $_POST['id'];
     $query = "DELETE FROM vendedor WHERE id = '$id_vendedor'";
@@ -47,10 +47,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar'])){
     }
 
     mysqli_close($con);
-    header("Location: alter_vendedor.php");
+    header("Location: cons_vendedor.php");
 } elseif($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancelar'])) {
     
-    header("Location: alter_vendedor.php");
+    header("Location: cons_vendedor.php");
     exit;
 }
 

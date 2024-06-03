@@ -47,7 +47,7 @@ if(isset($_GET['id'])) {
             margin: 0;
             padding: 20px;
         }
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #333;
         }
@@ -76,6 +76,29 @@ if(isset($_GET['id'])) {
         input[type="submit"]:hover, input[type="button"]:hover {
             background-color: #d32f2f;
         }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a.button:hover {
+            background-color: #1976D2;
+        }
+        p.success {
+            color: green;
+            text-align: center;
+        }
+        p.error {
+            color: red;
+            text-align: center;
+        }
+        .popup, .overlay {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -89,7 +112,7 @@ if(isset($_GET['id'])) {
     <form method="POST">
         <p>Deseja realmente excluir o cliente <?php echo $row['nome']; ?>?</p>
         <input type="submit" name="confirmar" value="Confirmar">
-        <input type="button" value="Cancelar" onclick="window.location='consulta_clientes.php'">
+        <input type="button" value="Cancelar" onclick="window.location='ConsultarCliente.php'">
     </form>
 </body>
 </html>

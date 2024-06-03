@@ -48,7 +48,7 @@
             text-decoration: underline;
         }
         #btnVoltar {
-            background-color: #4CAF50;
+            background-color: ##00BFFF;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;

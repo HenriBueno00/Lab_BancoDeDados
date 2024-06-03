@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Pedido de Produtos</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <?php
-  // Incluir o arquivo de conexão com o banco de dados
   include('ConexaoBD.php');
 
-  // Consultas para obter os dados necessários
   $sql_produtos = "SELECT id, nome FROM produto";
   $result_produtos = $con->query($sql_produtos);
 

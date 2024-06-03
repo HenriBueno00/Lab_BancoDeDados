@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Vendedores</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Inclusão de Vendedores</h1>

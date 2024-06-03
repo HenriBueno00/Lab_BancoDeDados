@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Consulta de Pedidos</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <?php
-  // Incluir o arquivo de conexão com o banco de dados
   include('ConexaoBD.php');
 
   $data_inicio = isset($_POST['data_inicio']) ? $_POST['data_inicio'] : '';
   $data_fim = isset($_POST['data_fim']) ? $_POST['data_fim'] : '';
 
-  // Consulta para obter os pedidos
   $sql = "SELECT p.*, c.nome AS nome_cliente, v.nome AS nome_vendedor
           FROM pedidos p
           INNER JOIN clientes c ON p.id_cliente = c.id
