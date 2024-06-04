@@ -12,7 +12,7 @@
             padding: 20px;
             color: #333;
         }
-        h1 {
+        h2 {
             text-align: center;
             color: #333;
         }
@@ -91,9 +91,10 @@
         $qtde_estoque = $_POST['qtde_estoque'];
         $preco = $_POST['preco'];
         $unidade_medida = $_POST['unidade_medida'];
+        $promocao = isset($_POST['promocao']) ? 1 : 0;
 
-        $query = "INSERT INTO produto (nome, qtde_estoque, preco, unidade_medida) 
-                  VALUES ('$nome', '$qtde_estoque', '$preco', '$unidade_medida')";
+        $query = "INSERT INTO produto (nome, qtde_estoque, preco, unidade_medida, promocao) 
+                  VALUES ('$nome', '$qtde_estoque', '$preco', '$unidade_medida', '$promocao')";
 
         if (mysqli_query($con, $query)) {
             echo "<p class='success'>Produto cadastrado com sucesso!</p>";
@@ -114,6 +115,9 @@
         
         <label for="unidade_medida">Unidade de Medida:</label>
         <input type="text" id="unidade_medida" name="unidade_medida">
+
+        <label for="promocao">Em Promoção:</label>
+        <input type="checkbox" id="promocao" name="promocao" value="1">
         
         <input type="submit" value="Adicionar Produto">
     </form>
