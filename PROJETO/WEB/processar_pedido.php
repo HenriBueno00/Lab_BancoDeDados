@@ -2,8 +2,10 @@
 include('ConexaoBD.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $con->begin_transaction();
-
+    if (!mysqli_begin_transaction($con)) {
+        die("Falha ao iniciar a transação: " . mysqli_connect_error());
+    }
+    
     $data = $_POST['data'];
     $id_cliente = $_POST['id_cliente'];
     $observacao = $_POST['observacao'];
@@ -29,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             echo "Pedido salvo com sucesso!";
-            $con->commit();
+            mysqli_commit($con);
         } else {
-            throw new Exception("Erro ao salvar pedido: " . $con->error);
+            throw new Exception("Erro ao salvar pedido: " . mysqli_error($con));
         }
     } catch (Exception $e) {
         echo "Erro: " . $e->getMessage();
-        $con->rollback();
+        mysqli_rollback($con);
     }
     $con->close();
 }
