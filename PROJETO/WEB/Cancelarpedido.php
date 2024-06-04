@@ -44,6 +44,8 @@
             $result_delete_pedido = mysqli_query($con, $query_delete_pedido);
             if ($result_delete_pedido){
                 echo "Pedido excluído com sucesso!";
+                // Redirecionar para a página de exclusão de pedido após 3 segundos
+                echo "<meta http-equiv='refresh' content='3;url=pedido_ex.php'>";
             } else{
                 echo "Erro ao excluir o pedido: ".mysqli_error($con);
             }
@@ -51,9 +53,8 @@
             echo "Erro ao excluir os itens do pedido: ".mysqli_error($con);
         }
         mysqli_close($con);
-        header("Location: ConsultaPedidos.php");
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancelar'])){
-        header("Location: ConsultaPedidos.php");
+        header("Location: pedido_ex.php");
         exit;
     }   
     ?>

@@ -64,7 +64,8 @@ $result = $con->query($sql);
                     echo "<td>{$row['id_forma_pagto']}</td>";
                     echo "<td>{$row['prazo_entrega']}</td>";
                     echo "<td>{$row['id_vendedor']}</td>";
-                    echo "<td><a href='#' onclick='confirmarExclusao({$row['id']})'>Excluir</a></td>";
+                    echo "<td><a href='CancelarPedido.php?excluir={$row['id']}'>Excluir</a></td>";
+
                     echo "</tr>";
                 }
             } else {

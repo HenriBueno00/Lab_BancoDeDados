@@ -20,12 +20,14 @@
 </head>
 <body>
   <?php
+  // Incluir o arquivo de conexão com o banco de dados
   include('ConexaoBD.php');
 
   // Receber os valores dos campos de data do formulário
   $data_inicio = isset($_POST['data_inicio']) ? $_POST['data_inicio'] : '';
   $data_fim = isset($_POST['data_fim']) ? $_POST['data_fim'] : '';
 
+  // Consulta para obter os pedidos
   $sql = "SELECT p.*, c.nome AS nome_cliente, v.nome AS nome_vendedor
           FROM pedidos p
           INNER JOIN clientes c ON p.id_cliente = c.id
@@ -87,7 +89,6 @@
                         WHERE ip.id_pedido = {$row['id']}";
 
           $result_itens = $con->query($sql_itens);
-
           echo "<tr id='itens-{$row['id']}' style='display: none;'><td colspan='8'><table border='1' width='100%'><tr><th>Produto</th><th>Quantidade</th></tr>";
           if ($result_itens->num_rows > 0) {
             while($item = $result_itens->fetch_assoc()) {
