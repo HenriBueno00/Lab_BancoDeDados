@@ -10,58 +10,73 @@
             background-color: #f2f2f2;
             margin: 0;
             padding: 20px;
+            color: #333;
         }
-        h2 {
+        h1 {
             text-align: center;
             color: #333;
         }
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
         }
         label {
+            display: block;
             margin-top: 10px;
-            margin-bottom: 5px;
             font-weight: bold;
         }
-        input[type="text"], input[type="number"] {
-            padding: 8px;
-            width: 300px;
-            margin-bottom: 10px;
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        input[type="submit"],
+        input[type="reset"],
+        button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            box-sizing: border-box;
         }
-        input[type="submit"] {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #4CAF50;
+        input[type="submit"],
+        input[type="reset"],
+        button {
+            background-color: #28a745;
             color: white;
+            border: none;
+            cursor: pointer;
             margin-top: 20px;
         }
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        button:hover {
+            background-color: #218838;
         }
-        p.success {
-            color: green;
+        .message {
             text-align: center;
-        }
-        p.error {
-            color: red;
-            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
         }
         #btnVoltar {
-            background-color: #4CAF50;
+            background-color: #00BFFF;
             color: white;
             padding: 14px 20px;
-            margin: 8px 0;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-bottom: 20px;
+            width: auto;
+        }
+
+        #btnVoltar:hover {
+            background-color: #1E90FF;
         }
     </style>
 </head>
@@ -102,6 +117,6 @@
         
         <input type="submit" value="Adicionar Produto">
     </form>
-    <input type="button" value="Voltar" onclick="window.location.href='index.php'">
+    <input id="btnVoltar" type="button" value="Voltar" onclick="window.location.href='Produtos.php'">
 </body>
 </html>

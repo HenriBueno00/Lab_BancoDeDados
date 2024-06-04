@@ -25,7 +25,9 @@
             margin-bottom: 20px;
         }
 
-        button {
+        .container button {
+            display: block;
+            width: 100%;
             padding: 20px 40px;
             background-color: #4CAF50;
             color: white;
@@ -33,10 +35,11 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size:20px;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
-        button:hover {
+        .container button:hover {
             background-color: #45a049;
         }
 
@@ -47,15 +50,20 @@
         a:hover {
             text-decoration: underline;
         }
+
         #btnVoltar {
-            background-color: #4CAF50;
+            background-color: #00BFFF;
             color: white;
             padding: 14px 20px;
-            margin: 8px 0;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-bottom: 20px;
+            width: auto;
+        }
+
+        #btnVoltar:hover {
+            background-color: #1E90FF;
         }
     </style>
 </head>
@@ -66,6 +74,5 @@
         <a href="cons_vendedor.php"><button>Consultar Vendedores</button></a>
         <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
     </div>
-   
 </body>
 </html>

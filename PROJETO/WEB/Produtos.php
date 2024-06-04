@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Clientes</title>
+    <title>Página de Produtos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,22 +20,26 @@
             text-align: center;
         }
 
-        h2 {
+        h1 {
             color: #333;
             margin-bottom: 20px;
         }
 
-        button {
-            padding: 10px 20px;
+        .container button {
+            display: block;
+            width: 100%;
+            padding: 20px 40px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
-        button:hover {
+        .container button:hover {
             background-color: #45a049;
         }
 
@@ -46,13 +50,28 @@
         a:hover {
             text-decoration: underline;
         }
+
+        #btnVoltar {
+            background-color: #00BFFF;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        #btnVoltar:hover {
+            background-color: #1E90FF;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Página de Produtos</h2>
-        <a href="incluir_produto.php"><button>Cadastrar Produto</button></a>
-        <a href="consultar_produtos.php"><button>Consultar Produto</button></a>
+        <h1>Página de Produtos</h1>
+        <a href="incluir_produto.php"><button>Cadastrar Produtos</button></a>
+        <a href="consultar_produtos.php"><button>Consultar Produtos</button></a>
         <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
     </div>
 </body>

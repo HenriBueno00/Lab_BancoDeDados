@@ -65,6 +65,20 @@ if (isset($_GET['id'])) {
         input[type="button"] {
             background-color: #f44336;
         }
+        #btnVoltar {
+            background-color: #00BFFF;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        #btnVoltar:hover {
+            background-color: #1E90FF;
+        }
     </style>
 </head>
 <body>
@@ -92,8 +106,8 @@ if (isset($_GET['id'])) {
         <p><label>Salário: </label><input type="text" name="salario" value="<?php echo $row['salario']; ?>"></p>
         <p>
             <input type="submit" value="Salvar">
-            <input type="button" value="Cancelar" onclick="window.location.href='ConsultarClientes.php'">
-            <input type="button" value="Voltar" onclick="window.location.href='ConsultarClientes.php'">
+            <input type="button" value="Cancelar" onclick="window.location.href='ConsultarCliente.php'">
+            <input id="btnVoltar" type="button" value="Voltar" onclick="window.location.href='ConsultarCliente.php'">
         </p>
     </form>
 </body>

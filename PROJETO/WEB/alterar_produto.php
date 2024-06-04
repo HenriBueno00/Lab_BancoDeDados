@@ -39,6 +39,7 @@
             border-radius: 4px;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.3s ease;
         }
         input[type="submit"] {
             background-color: #4CAF50;
@@ -62,6 +63,7 @@
             color: white;
             text-decoration: none;
             border-radius: 4px;
+            transition: background-color 0.3s ease;
         }
         a.button:hover {
             background-color: #1976D2;
@@ -80,56 +82,54 @@
     <h2>Alterar Produto</h2>
 
     <?php
-    include_once('ConexaoBD.php');
+        include_once('ConexaoBD.php');
 
-    $id = $nome = $qtde_estoque = $preco = $unidade_medida = '';
+        $id = $nome = $qtde_estoque = $preco = $unidade_medida = '';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
-        $id = $_GET['id'];
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
+            $id = $_GET['id'];
 
-        // Consulta para obter os dados do produto
-        $sql = "SELECT nome, qtde_estoque, preco, unidade_medida FROM produto WHERE id = ?";
-        $stmt = mysqli_prepare($con, $sql);
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $id);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $nome, $qtde_estoque, $preco, $unidade_medida);
-            mysqli_stmt_fetch($stmt);
-            mysqli_stmt_close($stmt);
-        } else {
-            echo "<p class='error'>Erro ao preparar a query: " . mysqli_error($con) . "</p>";
-        }
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $id = $_POST['id'];
-        $nome = $_POST['nome'];
-        $qtde_estoque = $_POST['qtde_estoque'];
-        $preco = $_POST['preco'];
-        $unidade_medida = $_POST['unidade_medida'];
-
-        if (!empty($id) && !empty($nome) && !empty($qtde_estoque) && !empty($preco) && !empty($unidade_medida)) {
-            $sql = "UPDATE produto SET nome = ?, qtde_estoque = ?, preco = ?, unidade_medida = ? WHERE id = ?";
+            $sql = "SELECT nome, qtde_estoque, preco, unidade_medida FROM produto WHERE id = ?";
             $stmt = mysqli_prepare($con, $sql);
             if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "sidsi", $nome, $qtde_estoque, $preco, $unidade_medida, $id);
-                if (mysqli_stmt_execute($stmt)) {
-                    echo "<p class='success'>Produto alterado com sucesso.</p>";
-                } else {
-                    echo "<p class='error'>Erro ao alterar produto: " . mysqli_error($con) . "</p>";
-                }
+                mysqli_stmt_bind_param($stmt, "i", $id);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $nome, $qtde_estoque, $preco, $unidade_medida);
+                mysqli_stmt_fetch($stmt);
                 mysqli_stmt_close($stmt);
             } else {
                 echo "<p class='error'>Erro ao preparar a query: " . mysqli_error($con) . "</p>";
             }
-        } else {
-            echo "<p class='error'>Todos os campos são obrigatórios.</p>";
         }
 
-        // Fechar a conexão
-        mysqli_close($con);
-    }
-    ?>
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id'];
+            $nome = $_POST['nome'];
+            $qtde_estoque = $_POST['qtde_estoque'];
+            $preco = $_POST['preco'];
+            $unidade_medida = $_POST['unidade_medida'];
+
+            if (!empty($id) && !empty($nome) && isset($qtde_estoque) && isset($preco) && !empty($unidade_medida)) {
+                $sql = "UPDATE produto SET nome = ?, qtde_estoque = ?, preco = ?, unidade_medida = ? WHERE id = ?";
+                $stmt = mysqli_prepare($con, $sql);
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, "sidsi", $nome, $qtde_estoque, $preco, $unidade_medida, $id);
+                    if (mysqli_stmt_execute($stmt)) {
+                        echo "<p class='success'>Produto alterado com sucesso.</p>";
+                    } else {
+                        echo "<p class='error'>Erro ao alterar produto: " . mysqli_error($con) . "</p>";
+                    }
+                    mysqli_stmt_close($stmt);
+                } else {
+                    echo "<p class='error'>Erro ao preparar a query: " . mysqli_error($con) . "</p>";
+                }
+            } else {
+                echo "<p class='error'>Todos os campos são obrigatórios.</p>";
+            }
+
+            mysqli_close($con);
+        }
+?>
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">

@@ -11,11 +11,11 @@
             margin: 0;
             padding: 20px;
         }
-        h1, h2 {
+        h2 {
             text-align: center;
             color: #333;
         }
-        form {
+        .popup {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -23,9 +23,12 @@
             width: 400px;
             margin: 0 auto;
             text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         p {
-            text-align: center;
+            margin: 10px 0;
         }
         input[type="submit"], input[type="button"] {
             background-color: #f44336;
@@ -36,6 +39,7 @@
             border-radius: 4px;
             cursor: pointer;
             width: 50%;
+            transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover, input[type="button"]:hover {
             background-color: #d32f2f;
@@ -48,6 +52,7 @@
             color: white;
             text-decoration: none;
             border-radius: 4px;
+            transition: background-color 0.3s ease;
         }
         a.button:hover {
             background-color: #1976D2;
@@ -59,9 +64,6 @@
         p.error {
             color: red;
             text-align: center;
-        }
-        .popup, .overlay {
-            display: none;
         }
     </style>
 </head>
@@ -125,17 +127,19 @@
     }
     ?>
     <?php if (!$produtoExcluido) { ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-            <?php if (!empty($nome)) { ?>
-                <p>Tem certeza que deseja excluir o produto: <?php echo htmlspecialchars($nome); ?>?</p>
-                <input type="submit" value="Excluir Produto" onclick="return confirm('Tem certeza que deseja excluir este produto?');">
-                <input type="button" value="Cancelar" onclick="window.location='consultar_produtos.php'">
-            <?php } else { ?>
-                <p>Produto não encontrado.</p>
-                <a href="consultar_produtos.php" class="button">Voltar</a>
-            <?php } ?>
-        </form>
+        <div class="popup">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+                <?php if (!empty($nome)) { ?>
+                    <p>Tem certeza que deseja excluir o produto: <?php echo htmlspecialchars($nome); ?>?</p>
+                    <input type="submit" value="Excluir Produto" onclick="return confirm('Tem certeza que deseja excluir este produto?');">
+                    <input type="button" value="Cancelar" onclick="window.location='consultar_produtos.php'">
+                <?php } else { ?>
+                    <p>Produto não encontrado.</p>
+                    <a href="consultar_produtos.php" class="button">Voltar</a>
+                <?php } ?>
+            </form>
+        </div>
     <?php } ?>
 </body>
 </html>
