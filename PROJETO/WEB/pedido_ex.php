@@ -1,24 +1,5 @@
 <?php
 include('ConexaoBD.php');
-
-// Verificar se foi solicitada a exclusão de um pedido
-if (isset($_GET['excluir'])) {
-    $pedido_id = intval($_GET['excluir']);
-
-    // Excluir itens do pedido
-    $sql_delete_itens = "DELETE FROM itens_pedido WHERE id_pedido = $pedido_id";
-    $con->query($sql_delete_itens);
-
-    // Excluir o pedido
-    $sql_delete_pedido = "DELETE FROM pedidos WHERE id = $pedido_id";
-    $con->query($sql_delete_pedido);
-
-    // Redirecionar para a mesma página sem o parâmetro de exclusão
-    header("Location: cancelarpedido.php");
-    exit();
-}
-
-// Consulta para obter os pedidos
 $sql = "SELECT * FROM pedidos";
 $result = $con->query($sql);
 ?>
@@ -28,13 +9,7 @@ $result = $con->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Pedidos</title>
-    <script>
-        function confirmarExclusao(pedidoId) {
-            if (confirm("Você tem certeza que deseja excluir este pedido e seus itens?")) {
-                window.location.href = "?excluir=" + pedidoId;
-            }
-        }
-    </script>
+    
 </head>
 <body>
     
@@ -76,7 +51,6 @@ $result = $con->query($sql);
     </table>
 
     <?php
-    // Fechar a conexão com o banco de dados
     $con->close();
     ?>
 </body>
