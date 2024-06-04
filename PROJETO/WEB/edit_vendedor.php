@@ -66,6 +66,20 @@ $row = mysqli_fetch_assoc($resultado);
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+        #btnVoltar {
+            background-color: #00BFFF;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        #btnVoltar:hover {
+            background-color: #1E90FF;
+        }
     </style>
 </head>
 <body>
@@ -148,5 +162,6 @@ $row = mysqli_fetch_assoc($resultado);
 
         <p><input type="submit" value="Salvar"></p>
     </form>
+    <button id="btnVoltar" onclick="window.location.href='Vendedores.php'">Voltar</button>
 </body>
 </html>

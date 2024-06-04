@@ -42,11 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['msg'] = "<p style='color:red;'>Erro ao atualizar os dados.</p>";
     }
 
-    header("Location: ConsultarClientes.php");
+    header("Location: ConsultarCliente.php");
     exit();
 } else {
     $_SESSION['msg'] = "<p style='color:red;'>Requisição inválida.</p>";
-    header("Location: ConsultarClientes.php");
+    header("Location: ConsultarCliente.php");
     exit();
 }
 ?>
