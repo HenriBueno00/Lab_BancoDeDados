@@ -33,6 +33,9 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        input[type="checkbox"] {
+            margin-top: 5px;
+        }
         input[type="submit"], button {
             padding: 10px 20px;
             border: none;
@@ -89,12 +92,12 @@
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
             $id = $_GET['id'];
 
-            $sql = "SELECT nome, qtde_estoque, preco, unidade_medida FROM produto WHERE id = ?";
+            $sql = "SELECT nome, qtde_estoque, preco, unidade_medida, promocao FROM produto WHERE id = ?";
             $stmt = mysqli_prepare($con, $sql);
             if ($stmt) {
                 mysqli_stmt_bind_param($stmt, "i", $id);
                 mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $nome, $qtde_estoque, $preco, $unidade_medida);
+                mysqli_stmt_bind_result($stmt, $nome, $qtde_estoque, $preco, $unidade_medida, $promocao);
                 mysqli_stmt_fetch($stmt);
                 mysqli_stmt_close($stmt);
             } else {
@@ -108,12 +111,13 @@
             $qtde_estoque = $_POST['qtde_estoque'];
             $preco = $_POST['preco'];
             $unidade_medida = $_POST['unidade_medida'];
+            $promocao = isset($_POST['promocao']) ? 1 : 0;
 
             if (!empty($id) && !empty($nome) && isset($qtde_estoque) && isset($preco) && !empty($unidade_medida)) {
-                $sql = "UPDATE produto SET nome = ?, qtde_estoque = ?, preco = ?, unidade_medida = ? WHERE id = ?";
+                $sql = "UPDATE produto SET nome = ?, qtde_estoque = ?, preco = ?, unidade_medida = ?, promocao = ? WHERE id = ?";
                 $stmt = mysqli_prepare($con, $sql);
                 if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "sidsi", $nome, $qtde_estoque, $preco, $unidade_medida, $id);
+                    mysqli_stmt_bind_param($stmt, "sidsii", $nome, $qtde_estoque, $preco, $unidade_medida, $promocao, $id);
                     if (mysqli_stmt_execute($stmt)) {
                         echo "<p class='success'>Produto alterado com sucesso.</p>";
                     } else {
@@ -146,7 +150,9 @@
         <label for="unidade_medida">Unidade de Medida:</label>
         <input type="text" id="unidade_medida" name="unidade_medida" value="<?php echo htmlspecialchars($unidade_medida); ?>">
         
-
+        <label for="promocao">Em Promoção:</label>
+        <input type="checkbox" id="promocao" name="promocao" value="1" <?php if($promocao) echo 'checked'; ?>>
+        
         <input type="submit" value="Alterar Produto">
         <button type="button" onclick="history.back()">Cancelar</button>
         <a href="consultar_produtos.php" class="button">Voltar</a>

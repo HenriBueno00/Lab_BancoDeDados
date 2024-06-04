@@ -107,7 +107,7 @@
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
-            <?php
+          <?php
 
             include('ConexaoBD.php');
 
@@ -118,7 +118,7 @@
                     $search = mysqli_real_escape_string($con, $_POST['nome']);
                     $query = "SELECT * FROM produto WHERE nome LIKE '%$search%'";
                 } else {
-                    echo "<tr><td colspan='6'>Por favor, insira um nome para pesquisa.</td></tr>";
+                    echo "<tr><td colspan='7'>Por favor, insira um nome para pesquisa.</td></tr>";
                     $query = "SELECT * FROM produto";
                 }
             } else {
@@ -133,6 +133,7 @@
                     echo "<td>" . $row['qtde_estoque'] . "</td>";
                     echo "<td>R$ " . number_format($row['preco'], 2, ',', '.') . "</td>";
                     echo "<td>" . $row['unidade_medida'] . "</td>";
+                    echo "<td>" . (($row['promocao'] == 1) ? 'Sim' : 'Não') . "</td>";
                     echo "<td><a href='alterar_produto.php?id=" . $row['id'] . "'>Editar</a></td>";
                     echo "<td><a href='excluir_produto.php?id=" . $row['id'] . "'>Excluir</a></td>";
                     echo "</tr>";
