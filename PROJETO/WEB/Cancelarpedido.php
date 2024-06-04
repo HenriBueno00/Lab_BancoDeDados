@@ -37,7 +37,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar'])){
         include("ConexaoBD.php");
         $id = $_POST["id"];
-        $con->begin_transaction();
+        mysqli_begin_transaction($con);
         $query_delete_itens = "DELETE FROM itens_pedido WHERE id_pedido = $id";
         $result_delete_itens = mysqli_query($con, $query_delete_itens);
         if ($result_delete_itens){
@@ -45,15 +45,15 @@
             $result_delete_pedido = mysqli_query($con, $query_delete_pedido);
             if ($result_delete_pedido){
                 echo "Pedido excluído com sucesso!";
-                $con->commit();
+                mysqli_commit($con);
                 echo "<meta http-equiv='refresh' content='3;url=pedido_ex.php'>";
             } else{
                 echo "Erro ao excluir o pedido: ".mysqli_error($con);
-                $con->rollback();
+                mysqli_rollback($con);
             }
         } else{
             echo "Erro ao excluir os itens do pedido: ".mysqli_error($con);
-            $con->rollback();
+            mysqli_rollback($con);
         }
         mysqli_close($con);
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cancelar'])){
