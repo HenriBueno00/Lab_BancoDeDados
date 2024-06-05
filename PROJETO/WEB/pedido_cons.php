@@ -21,30 +21,21 @@
 <body>
   <?php
   include('ConexaoBD.php');
-  try {
-    $con->begin_transaction();
+  $data_inicio = isset($_POST['data_inicio']) ? $_POST['data_inicio'] : '';
+  $data_fim = isset($_POST['data_fim']) ? $_POST['data_fim'] : '';
+  $sql = "SELECT p.*, c.nome AS nome_cliente, v.nome AS nome_vendedor
+          FROM pedidos p
+          INNER JOIN clientes c ON p.id_cliente = c.id
+          INNER JOIN vendedor v ON p.id_vendedor = v.id";
 
-    $data_inicio = isset($_POST['data_inicio']) ? $_POST['data_inicio'] : '';
-    $data_fim = isset($_POST['data_fim']) ? $_POST['data_fim'] : '';
-    $sql = "SELECT p.*, c.nome AS nome_cliente, v.nome AS nome_vendedor
-            FROM pedidos p
-            INNER JOIN clientes c ON p.id_cliente = c.id
-            INNER JOIN vendedor v ON p.id_vendedor = v.id";
+  if ($data_inicio && $data_fim) {
+    $sql .= " WHERE p.data BETWEEN '$data_inicio' AND '$data_fim'";
+  }
 
-    if ($data_inicio && $data_fim) {
-      $sql .= " WHERE p.data BETWEEN '$data_inicio' AND '$data_fim'";
-    }
+  $result = $con->query($sql);
 
-    $result = $con->query($sql);
-
-    if (!$result) {
-      throw new Exception("Erro ao consultar pedidos: " . $con->error);
-    }
-
-    $con->commit();
-  } catch (Exception $e) {
-    $con->rollback();
-    echo "Falha ao consultar pedidos: " . $e->getMessage();
+  if (!$result) {
+    echo "Erro ao consultar pedidos: " . $con->error;
     exit;
   }
   ?>
@@ -96,28 +87,19 @@
                         INNER JOIN produto pr ON ip.id_produto = pr.id
                         WHERE ip.id_pedido = {$row['id']}";
 
-          try {
-            $con->begin_transaction();
+          $result_itens = $con->query($sql_itens);
 
-            $result_itens = $con->query($sql_itens);
-
-            if (!$result_itens) {
-              throw new Exception("Erro ao consultar itens do pedido: " . $con->error);
-            }
-
-            if ($result_itens->num_rows > 0) {
-              while($item = $result_itens->fetch_assoc()) {
-                echo "<tr><td>{$item['nome_produto']}</td><td>{$item['qtde']}</td></tr>";
-              }
-            } else {
-              echo "<tr><td colspan='2'>Nenhum item encontrado</td></tr>";
-            }
-
-            $con->commit();
-          } catch (Exception $e) {
-            $con->rollback();
-            echo "Falha ao consultar itens do pedido: " . $e->getMessage();
+          if (!$result_itens) {
+            echo "Erro ao consultar itens do pedido: " . $con->error;
             exit;
+          }
+
+          if ($result_itens->num_rows > 0) {
+            while($item = $result_itens->fetch_assoc()) {
+              echo "<tr><td>{$item['nome_produto']}</td><td>{$item['qtde']}</td></tr>";
+            }
+          } else {
+            echo "<tr><td colspan='2'>Nenhum item encontrado</td></tr>";
           }
           echo "</table></td></tr>";
         }

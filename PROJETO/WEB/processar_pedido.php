@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                            VALUES ($id_pedido, $id_produto, $qtde)";
                 $con->query($sql_item);
             }
-
-            echo "Pedido salvo com sucesso!";
+            echo "Pedido salvo com sucesso!<p>";
+            echo "<button id='btnVoltar' onclick='window.location=\"pedido_ad.php\"'>Voltar</button>";
             mysqli_commit($con);
         } else {
             throw new Exception("Erro ao salvar pedido: " . mysqli_error($con));
