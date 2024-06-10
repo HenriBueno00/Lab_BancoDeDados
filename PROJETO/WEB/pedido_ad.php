@@ -3,7 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <title>Pedido de Produtos</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    select {
+        width: 100%; /* Agora o campo select ocupará toda a largura do contêiner pai */
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+
+    button[type="button"],
+    button[type="submit"] {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    button[type="button"]:hover,
+    button[type="submit"]:hover {
+        background-color: #218838;
+    }
+
+    .item {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .item label {
+        display: inline-block;
+        width: 100px;
+    }
+
+    .item select {
+        width: calc(70% - 60px);
+        margin-right: 10px;
+    }
+
+    .item input[type="number"] {
+        width: calc(50% - 80px);
+        margin-right: 10px;
+    }
+
+    .item button {
+        margin-top: 5px;
+    }
+
+    .button {
+        background-color: #00BFFF;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        width: auto;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .button:hover {
+        background-color: #1E90FF;
+    }
+  </style>
 </head>
 <body>
   <?php
@@ -82,6 +191,7 @@
             <option value="<?= $produto['id'] ?>"><?= $produto['nome'] ?></option>
           <?php endforeach; ?>
         </select>
+        <p>
         <label for="qtde">Quantidade:</label>
         <input type="number" name="qtde[]" required>
         <button type="button" onclick="removerItem(this)">Remover</button>
@@ -100,8 +210,10 @@
       newItem.innerHTML = `
         <label for="id_produto">Produto:</label>
         <select name="id_produto[]" required>
+          <option value="" selected></option>
           ${produtos.map(produto => `<option value="${produto.id}">${produto.nome}</option>`).join('')}
         </select>
+        <p>
         <label for="qtde">Quantidade:</label>
         <input type="number" name="qtde[]" required>
         <button type="button" onclick="removerItem(this)">Remover</button>
