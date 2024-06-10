@@ -47,7 +47,7 @@ CREATE TABLE pedidos (
   observacao VARCHAR(200),
   id_forma_pagto INTEGER,
   prazo_entrega VARCHAR(25),
-  id_vendedor INTEGER,
+  id_vendedor INTEGER NOT NULL,
   FOREIGN KEY (id_cliente) REFERENCES clientes(id),
   FOREIGN KEY (id_vendedor) REFERENCES vendedor(id),
   FOREIGN KEY (id_forma_pagto) REFERENCES forma_pagto(id)
