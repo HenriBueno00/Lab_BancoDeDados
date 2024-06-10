@@ -175,7 +175,7 @@
       <label for="prazo_entrega">Prazo de Entrega:</label>
       <input type="text" id="prazo_entrega" name="prazo_entrega"><br>
       <label for="id_vendedor">Vendedor:</label>
-      <select id="id_vendedor" name="id_vendedor">
+      <select id="id_vendedor" name="id_vendedor" required>
         <option value="" selected></option>
         <?php foreach ($vendedores as $vendedor): ?>
           <option value="<?= $vendedor['id'] ?>"><?= $vendedor['nome'] ?></option>
