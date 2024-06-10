@@ -5,76 +5,94 @@
   <title>Consulta de Pedidos</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
     }
     h1, h2 {
-      text-align: center;
-      color: #333;
+        text-align: center;
+        color: #333;
     }
     form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
     }
     label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
     }
-    input[type="text"],
-    input[type="submit"] {
-      width: calc(100% - 22px);
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      font-size: 16px;
+    input[type="text"], input[type="date"], select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
     }
-    input[type="submit"] {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
+    .button-filter, input[type="reset"], #btnVoltar {
+        width: 100%;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 16px;
     }
-    input[type="submit"]:hover {
-      background-color: #218838;
+    .button-filter:hover, input[type="reset"]:hover, #btnVoltar:hover {
+        background-color: #218838;
+    }
+    #btnVoltar {
+        background-color: #007bff;
+        margin-top: 10px;
+    }
+    #btnVoltar:hover {
+        background-color: #0056b3;
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    table, th, td {
-      border: 1px solid #ccc;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
     }
     th, td {
-      padding: 10px;
-      text-align: left;
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
     }
     th {
-      background-color: #f2f2f2;
+        background-color: #4CAF50;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 4px;
+        background-color: #007bff;
+    }
+    a:hover {
+        background-color: #0056b3;
     }
     button {
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
     }
     button:hover {
-      background-color: #0056b3;
+        background-color: #0056b3;
     }
     .itens {
-      display: none;
+        display: none;
     }
   </style>
   <script>
@@ -116,10 +134,10 @@
   <form method="POST">
     <h2>Filtro por Nome do Cliente</h2>
     <label for="nome_cliente">Nome do Cliente:</label>
-    <input type="text" id="nome_cliente" name="nome_cliente" value="<?= htmlspecialchars($nome_cliente) ?>"><br><br>
+    <input type="text" id="nome_cliente" name="nome_cliente" value="<?= htmlspecialchars($nome_cliente) ?>">
     
-    <input type="submit" value="Filtrar">
-    <a href="Pedidos.php" class="button">Voltar</a>
+    <input type="submit" value="Filtrar" class="button-filter">
+    <a href="Pedidos.php" id="btnVoltar">Voltar</a>
   </form>
 
   <h2>Consulta de Pedidos</h2>
@@ -145,7 +163,7 @@
           echo "<td><button type='button' id='btn-{$row['id']}' onclick='toggleItens({$row['id']})'>Ver Itens</button></td>";
           echo "</tr>";
           echo "<tr class='itens' id='itens-{$row['id']}'><td colspan='5'>";
-          echo "<table border='1' width='100%'><tr><th>Produto</th><th>Preço</th><th>Quantidade</th></tr>";
+          echo "<table width='100%'><tr><th>Produto</th><th>Preço</th><th>Quantidade</th></tr>";
 
           $sql_itens = "SELECT ip.qtde, pr.nome AS nome_produto, pr.preco
                         FROM itens_pedido ip
