@@ -17,22 +17,22 @@
             height: 100vh;
         }
 
-        h2 {
+        h1 {
             color: #333;
             margin-bottom: 20px;
         }
 
         button {
-            padding: 15px 40px;
+            padding: 18px 40px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 16px;
+            font-size: 25px;
             margin-bottom: 10px;
-            width: 200px;
+            width: 250px;
         }
 
         button:hover {
@@ -49,7 +49,7 @@
     </style>
 </head>
 <body>
-    <h2>Página Inicial</h2>
+    <h1>Página Inicial</h1>
     <a href="Clientes.php"><button>Clientes</button></a>
     <a href="Vendedores.php"><button>Vendedores</button></a>
     <a href="Produtos.php"><button>Produtos</button></a>

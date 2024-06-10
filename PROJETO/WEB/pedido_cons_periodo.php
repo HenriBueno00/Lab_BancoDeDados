@@ -3,7 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <title>Consulta de Pedidos</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    input, select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    .button-filter, input[type="reset"], #btnVoltar {
+        width: 100%;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    .button-filter:hover, input[type="reset"]:hover, #btnVoltar:hover {
+        background-color: #218838;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        color: #007bff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+    }
+    a:hover {
+        background-color: #0056b3;
+    }
+    #btnVoltar {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+  </style>
   <script>
     function toggleItens(pedidoId) {
       var x = document.getElementById("itens-" + pedidoId);
@@ -48,7 +128,7 @@
     <label for="data_fim">Data Fim:</label>
     <input type="date" id="data_fim" name="data_fim" value="<?= $data_fim ?>"><br><br>
     
-    <button type="submit">Filtrar</button>
+    <button type="submit" class="button-filter">Filtrar</button>
     <a href="Pedidos.php" class="button">Voltar</a>
   </form>
 
