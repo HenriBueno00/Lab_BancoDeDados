@@ -70,7 +70,7 @@
             <input type="date" id="end_date" name="end_date" required>
             <button type="submit">Gerar Relatório</button>
         </form>
-        <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
+        <button id="btnVoltar" onclick="window.location='Vendedores.php'">Voltar</button>
     </div>
 </body>
 </html>
