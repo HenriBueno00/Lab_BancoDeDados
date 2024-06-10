@@ -13,6 +13,7 @@
         h1 {
             text-align: center;
             color: #333;
+            
         }
         form {
             background-color: #fff;
