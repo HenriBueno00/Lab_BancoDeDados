@@ -35,8 +35,8 @@ $linha = "";
 while ($registro = mysqli_fetch_array($resultado)) {
     $linha .= "<tr>";
     $linha .= "<td>" . $registro['nome_vendedor'] . "</td>";
-    $linha .= "<td>" . $registro['total_vendido'] . "</td>";
-    $linha .= "<td>" . $registro['comissao'] . "</td>";
+    $linha .= "<td>" . number_format($registro['total_vendido'], 2, ',', '.') . "</td>";
+    $linha .= "<td>" . number_format($registro['comissao'], 2, ',', '.') . "</td>";
     $linha .= "</tr>";
 }
 
