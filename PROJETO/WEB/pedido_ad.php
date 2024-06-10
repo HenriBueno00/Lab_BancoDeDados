@@ -89,6 +89,7 @@
     </div>
     <button type="button" onclick="adicionarItem()">Adicionar Item</button><br><br>
     <button type="submit">Salvar Pedido</button>
+    <a href="Pedidos.php" class="button">Voltar</a>
   </form>
   <script>
     const produtos = <?php echo json_encode($produtos); ?>;

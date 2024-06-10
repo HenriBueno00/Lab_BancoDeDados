@@ -141,3 +141,46 @@ INSERT INTO itens_pedido (id_pedido, id_produto, qtde) VALUES
 (9, 8, 3),
 (10, 9, 2),
 (10, 10, 1);
+
+DELIMITER //
+CREATE TRIGGER after_insert_itens_pedido
+AFTER INSERT ON itens_pedido
+FOR EACH ROW
+BEGIN
+  UPDATE produto
+  SET qtde_estoque = qtde_estoque - NEW.qtde
+  WHERE id = NEW.id_produto;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER after_delete_itens_pedido
+AFTER DELETE ON itens_pedido
+FOR EACH ROW
+BEGIN
+  UPDATE produto
+  SET qtde_estoque = qtde_estoque + OLD.qtde
+  WHERE id = OLD.id_produto;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER before_insert_itens_pedido
+BEFORE INSERT ON itens_pedido
+FOR EACH ROW
+BEGIN
+  DECLARE msg VARCHAR(255);
+  DECLARE available_stock INT;
+  DECLARE product_name VARCHAR(100);
+
+  SELECT qtde_estoque, nome INTO available_stock, product_name FROM produto WHERE id = NEW.id_produto;
+  
+  IF NEW.qtde > available_stock THEN
+    SET msg = CONCAT('Quantidade desejada (', NEW.qtde, ') para o produto ', product_name, ' (ID: ', NEW.id_produto, ') não disponível. Estoque atual: ', available_stock);
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+  END IF;
+END;
+//
+DELIMITER ;

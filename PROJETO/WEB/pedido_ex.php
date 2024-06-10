@@ -14,6 +14,7 @@ $result = $con->query($sql);
 <body>
     
     <h2>Pedidos</h2>
+    <a href="Pedidos.php" class="button">Voltar</a>
     <table border="1">
         <thead>
             <tr>

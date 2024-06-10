@@ -104,8 +104,8 @@
                 <th>Quantidade em Estoque</th>
                 <th>Preço</th>
                 <th>Unidade de Medida</th>
-                <th>Editar</th>
-                <th>Excluir</th>
+                <th>Promoção</th>
+                <th colspan=2>Ações</th>
             </tr>
           <?php
 

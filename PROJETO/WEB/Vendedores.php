@@ -85,8 +85,7 @@
             // Monta a URL para o script PHP que gera o relatório
             var url = 'relatorio_comis2.php?start_date=' + startDate + '&end_date=' + endDate;
 
-            // Abre a nova janela para exibir o relatório
-            window.open(url, '_blank');
+            window.location.href = url;
         }
     </script>
 

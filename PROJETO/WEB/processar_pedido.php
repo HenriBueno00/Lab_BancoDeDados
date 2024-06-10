@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_vendedor = $_POST['id_vendedor'];
 
     try {
-        $sql = "INSERT INTO pedidos (data, id_cliente, observacao, id_forma_pagto, prazo_entrega, id_vendedor)
-          VALUES ('$data', $id_cliente, '$observacao', $id_forma_pagto, '$prazo_entrega', $id_vendedor)";
+        $sql = "INSERT INTO pedidos (data, id_cliente, observacao, id_forma_pagto, prazo_entrega, id_vendedor) 
+                VALUES ('$data', $id_cliente, '$observacao', $id_forma_pagto, '$prazo_entrega', $id_vendedor)";
         
         if ($con->query($sql) === TRUE) {
             $id_pedido = $con->insert_id;
@@ -25,9 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             foreach ($id_produtos as $index => $id_produto) {
                 $qtde = $qtdes[$index];
-                $sql_item = "INSERT INTO itens_pedido (id_pedido, id_produto, qtde)
-                           VALUES ($id_pedido, $id_produto, $qtde)";
-                $con->query($sql_item);
+                $sql_item = "INSERT INTO itens_pedido (id_pedido, id_produto, qtde) 
+                             VALUES ($id_pedido, $id_produto, $qtde);";
+                if (!$con->query($sql_item)) {
+                    throw new Exception("Erro ao salvar item do pedido: " . mysqli_error($con));
+                }
             }
             echo "Pedido salvo com sucesso!<p>";
             echo "<button id='btnVoltar' onclick='window.location=\"pedido_ad.php\"'>Voltar</button>";
@@ -36,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception("Erro ao salvar pedido: " . mysqli_error($con));
         }
     } catch (Exception $e) {
-        echo "Erro: " . $e->getMessage();
+        echo "Erro: " . $e->getMessage() . "<p>";
+        echo "<button id='btnVoltar' onclick='window.location=\"pedido_ad.php\"'>Voltar</button>";
         mysqli_rollback($con);
     }
     $con->close();
