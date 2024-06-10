@@ -22,13 +22,14 @@
 
         h1 {
             color: #333;
-            margin-bottom: 20px; /* Adicionando margem inferior */
+            margin-bottom: 20px;
         }
 
         .button {
             display: block;
-            width: 100%;
+            width: 80%;
             padding: 20px 40px;
+            margin-bottom: 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -36,38 +37,39 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 20px;
-            margin-bottom: 10px; /* Removendo margem inferior */
-        }
-
-        .button:last-child {
-            margin-bottom: 20px; /* Adicionando margem inferior apenas ao último botão */
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .button:hover {
             background-color: #45a049;
         }
 
-        a {
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
         #btnVoltar {
+            display: inline-block;
             background-color: #00BFFF;
             color: white;
-            padding: 14px 20px;
+            padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            margin-bottom: 20px;
-            width: auto;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 20px;
         }
 
         #btnVoltar:hover {
             background-color: #1E90FF;
+        }
+
+        a {
+            text-decoration: none;
+            color: white; /* Mantém o texto do botão branco */
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
