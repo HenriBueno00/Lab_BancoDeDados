@@ -25,7 +25,8 @@
             margin-bottom: 20px;
         }
 
-        button {
+        a.button {
+            display: inline-block;
             padding: 20px 40px;
             background-color: #4CAF50;
             color: white;
@@ -34,38 +35,27 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size:20px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        a {
             text-decoration: none;
         }
 
-        a:hover {
-            text-decoration: underline;
+        a.button:hover {
+            background-color: #45a049;
         }
-        #btnVoltar {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 20px;
+
+        a.button:hover {
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Página de Pedidos</h1>
-        <a href="pedido_ad.php"><button>Cadastrar Pedido</button></a>
-        <a href="pedido_cons.php"><button>Consultar Pedido</button></a>
-        <a href="pedido_ex.php"><button>Excluir Pedido</button></a>
+        <a href="pedido_ad.php" class="button">Cadastrar Pedido</a>
+        <a href="pedido_cons_periodo.php" class="button">Consultar Pedido por Período</a>
+        <a href="pedido_cons_cliente.php" class="button">Consultar Pedido por Cliente</a>
+        <a href="pedido_ex.php" class="button">Excluir Pedido</a>
+        <a href="pedido_rel.php" class="button">Gerar Relatório de Pedido</a>
+        <a href="Index.php" class="button">Voltar</a>
     </div>
-    <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
 </body>
 </html>

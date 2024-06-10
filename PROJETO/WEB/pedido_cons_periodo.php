@@ -41,7 +41,7 @@
   ?>
 
   <form method="POST">
-    <h2>Filtro de Período</h2>
+    <h2>Filtro por Período</h2>
     <label for="data_inicio">Data Início:</label>
     <input type="date" id="data_inicio" name="data_inicio" value="<?= $data_inicio ?>"><br>
     
@@ -49,6 +49,7 @@
     <input type="date" id="data_fim" name="data_fim" value="<?= $data_fim ?>"><br><br>
     
     <button type="submit">Filtrar</button>
+    <a href="Pedidos.php" class="button">Voltar</a>
   </form>
 
   <h2>Consulta de Pedidos</h2>
