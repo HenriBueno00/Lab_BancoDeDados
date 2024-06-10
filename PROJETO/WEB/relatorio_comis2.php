@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Vendedores</title>
+    <title>Página de Relatório de Comissão</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,44 +51,27 @@
             text-decoration: underline;
         }
 
-        #btnVoltar {
-            background-color: #00BFFF;
-            color: white;
-            padding: 14px 20px;
-            border: none;
+        input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
             border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            width: auto;
-        }
-
-        #btnVoltar:hover {
-            background-color: #1E90FF;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Página de Vendedores</h1>
-        <a href="cadastroVendedor.php"><button>Cadastrar Vendedor</button></a>
-        <a href="cons_vendedor.php"><button>Consultar Vendedores</button></a>
-        <button id="btnGerarRelatorio" onclick="gerarRelatorio()">Gerar Relatório de Comissão</button>
+        <h1>Relatório de Comissão de Vendedores</h1>
+        <form action="gerar_relatorio_comissao.php" method="GET">
+            <label for="start_date">Data de Início:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            <label for="end_date">Data de Fim:</label>
+            <input type="date" id="end_date" name="end_date" required>
+            <button type="submit">Gerar Relatório</button>
+        </form>
         <button id="btnVoltar" onclick="window.location='Index.php'">Voltar</button>
     </div>
-
-    <script>
-        function gerarRelatorio() {
-            // Define as datas de início e fim para o relatório
-            var startDate = '2024-01-01';
-            var endDate = '2024-12-31';
-
-            // Monta a URL para o script PHP que gera o relatório
-            var url = 'relatorio_comis2.php?start_date=' + startDate + '&end_date=' + endDate;
-
-            // Abre a nova janela para exibir o relatório
-            window.open(url, '_blank');
-        }
-    </script>
-
 </body>
 </html>
+
